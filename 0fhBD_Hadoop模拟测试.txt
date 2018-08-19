@@ -1,0 +1,3227 @@
+﻿
+Hadoop 2.X 完全分布式部署安装
+http://jingyan.baidu.com/article/27fa73269c02fe46f9271f45.html
+
+hadoop2.6.0版本集群环境搭建
+http://blog.csdn.net/stark_summer/article/details/42424279
+	Hadoop集群环境搭建 + 运行Hadoop自带的wordcount Java测试程序
+
+hadoop入门--简单的MapReduce案例
+http://blog.csdn.net/zhangt85/article/details/42077281
+
+hadoop入门第七步---hive部署安装（apache-hive-1.1.0）
+http://blog.csdn.net/an342647823/article/details/46048403
+	MySQL + Hive
+
+Hive安装——0.9.0，无mysql
+http://www.cnblogs.com/linjiqin/archive/2013/03/04/2942402.html
+
+ZooKeeper-3.3.4集群安装配置 （单节点安装、集群安装）
+http://blog.csdn.net/shirdrn/article/details/7183503
+
+hadoop、hbase、zookeeper环境搭建（详细）
+http://zhli986-yahoo-cn.iteye.com/blog/1204199
+
+HBase 系统架构
+http://www.cnblogs.com/shitouer/archive/2012/06/04/2533518.html
+
+HBase介绍及简易安装
+http://www.cnblogs.com/nexiyi/p/hbase_intro_94.html
+
+HBase 常用Shell命令
+http://www.cnblogs.com/nexiyi/p/hbase_shell.html
+
+Hadoop实战手册
+http://book.51cto.com/art/201412/460060.htm
+
+
+Hadoop家族学习路线图
+http://blog.csdn.net/it_man/article/details/14899905
+
+【正版包邮】商业智能深入浅出——Cognos，Informatica技术与应
+https://item.taobao.com/item.htm?spm=a230r.1.14.106.1tVe9e&id=524569468108&ns=1&abbucket=8#detail
+
+正版包邮 Informatica PowerCenter权威指南 数据分析处理工具教程书籍 PowerCenter并行软件集群性能调优实践案例 计算机教材
+https://detail.tmall.com/item.htm?spm=a230r.1.14.21.1tVe9e&id=523190868012&ns=1&abbucket=8
+
+
+
+一句话产品介绍:
+	Apache Hadoop: 是Apache开源组织的一个分布式计算开源框架，提供了一个分布式文件系统子项目(HDFS)和支持MapReduce分布式计算的软件架构。
+	Apache Hive: 是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，通过类SQL语句快速实现简单的MapReduce统计，不必开发专门的MapReduce应用，十分适合数据仓库的统计分析。
+	Apache Pig: 是一个基于Hadoop的大规模数据分析工具，它提供的SQL-LIKE语言叫Pig Latin，该语言的编译器会把类SQL的数据分析请求转换为一系列经过优化处理的MapReduce运算。
+	Apache HBase: 是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。
+	Apache Sqoop: 是一个用来将Hadoop和关系型数据库中的数据相互转移的工具，可以将一个关系型数据库（MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。
+	Apache Zookeeper: 是一个为分布式应用所设计的分布的、开源的协调服务，它主要是用来解决分布式应用中经常遇到的一些数据管理问题，简化分布式应用协调及其管理的难度，提供高性能的分布式服务
+	Apache Mahout:是基于Hadoop的机器学习和数据挖掘的一个分布式框架。Mahout用MapReduce实现了部分数据挖掘算法，解决了并行挖掘的问题。
+	Apache Cassandra:是一套开源分布式NoSQL数据库系统。它最初由Facebook开发，用于储存简单格式数据，集Google BigTable的数据模型与Amazon Dynamo的完全分布式的架构于一身
+	Apache Avro: 是一个数据序列化系统，设计用于支持数据密集型，大批量数据交换的应用。Avro是新的数据序列化格式与传输工具，将逐步取代Hadoop原有的IPC机制
+	Apache Ambari: 是一种基于Web的工具，支持Hadoop集群的供应、管理和监控。
+	Apache Chukwa: 是一个开源的用于监控大型分布式系统的数据收集系统，它可以将各种各样类型的数据收集成适合 Hadoop 处理的文件保存在 HDFS 中供 Hadoop 进行各种 MapReduce 操作。
+	Apache Hama: 是一个基于HDFS的BSP（Bulk Synchronous Parallel)并行计算框架, Hama可用于包括图、矩阵和网络算法在内的大规模、大数据计算。
+	Apache Flume: 是一个分布的、可靠的、高可用的海量日志聚合的系统，可用于日志数据收集，日志数据处理，日志数据传输。
+	Apache Giraph: 是一个可伸缩的分布式迭代图处理系统， 基于Hadoop平台，灵感来自 BSP (bulk synchronous parallel) 和 Google 的 Pregel。
+	Apache Oozie: 是一个工作流引擎服务器, 用于管理和协调运行在Hadoop平台上（HDFS、Pig和MapReduce）的任务。
+	Apache Crunch: 是基于Google的FlumeJava库编写的Java库，用于创建MapReduce程序。与Hive，Pig类似，Crunch提供了用于实现如连接数据、执行聚合和排序记录等常见任务的模式库
+	Apache Whirr: 是一套运行于云服务的类库（包括Hadoop），可提供高度的互补性。Whirr学支持Amazon EC2和Rackspace的服务。
+	Apache Bigtop: 是一个对Hadoop及其周边生态进行打包，分发和测试的工具。
+	Apache HCatalog: 是基于Hadoop的数据表和存储管理，实现中央的元数据和模式管理，跨越Hadoop和RDBMS，利用Pig和Hive提供关系视图。
+	Cloudera Hue: 是一个基于WEB的监控和管理系统，实现对HDFS，MapReduce/YARN, HBase, Hive, Pig的web化操作和管理。
+
+
+
+CFH 2015-11-24 Hadoop集群部署
+
+OS：Redhat Linux Server 5.0
+Hadoop: 2.6.2 (安装包：在http://www.apache.org下载, hadoop-2.6.2.tar.gz)
+JDK: 1.7.0 (安装包：jdk-7u17-linux-i586.rpm)
+
+安装OS，作为gclab1.oracle.com (IP:192.168.2.21)
+使用的OS用户：root
+安装JDK，在.bash_profile中配制JAVA_HOME/CLASSPATH环境变量
+/opt下创建data1 folder用于存储Hadoop数据，解压hadoop安装包到/opt下，并chown -R root:root /opt/hadoop2.6.2
+配制Hadoop:
+	tar -xzvf xxx.tar.gz
+	mv 
+	在etc/hadoop/下有2个shell和4个xml文件需要配制（hadoop-env.sh, yarn-env.sh, slaves, core-site.xml, hdfs-site.xml, mapred-site.xml, yarn-site.xml）：
+    以下为最小配制：
+	hadoop-env.sh, yarn-env.sh这2个是要配制JAVA_HOME到里面去
+		export JAVA_HOME=/usr/java/jdk1.7.0_17
+	将要作为DataNode的slaves，这里我配2个：
+		gclab1
+		gclab2
+	core-site.xml
+		这个是hadoop的核心配置文件，这里需要配置的就这两个属性，fs.default.name配置了hadoop的HDFS系统的命名，位置为主机的9000端口；hadoop.tmp.dir配置了hadoop的tmp目录的根位置。这里使用了一个文件系统中没有的位置，所以要先用mkdir命令新建一下。
+		<configuration>
+			<property>
+				<name>hadoop.tmp.dir</name>
+				<value>/opt/data1</value>
+			</property>
+			<property>
+				<name>fs.default.name</name>
+				<value>hdfs://gclab1:9000</value>
+			</property>
+		</configuration>
+	hdfs-site.xml
+		这个是hdfs的配置文件，dfs.http.address配置了hdfs的http的访问位置；dfs.replication配置了文件块的副本数，一般不大于从机的个数。
+		<configuration>
+			<property>
+				<name>dfs.http.address</name>
+				<value>gclab1:50070</value>
+			</property>
+			<property>
+				<name>dfs.namenode.secondary.http-address</name>
+				<value>gclab1:50090</value>
+			</property>
+			<property>
+				<name>dfs.replication</name>
+				<value>2</value>
+			</property>
+		</configuration>
+	mapred-site.xml
+		这个是mapreduce任务的配置，由于hadoop2.x使用了yarn框架，所以要实现分布式部署，必须在mapreduce.framework.name属性下配置为yarn。mapred.map.tasks和mapred.reduce.tasks分别为map和reduce的任务数，至于什么是map和reduce，可参考其它资料进行了解。
+		<configuration>
+			<property>
+				<name>mapred.job.tracker</name>
+				<value>gclab1:9001</value>
+			</property>
+			<property>
+				<name>mapred.map.tasks</name>
+				<value>20</value>
+			</property>
+			<property>
+				<name>mapred.reduce.tasks</name>
+				<value>4</value>
+			</property>
+			<property>
+				<name>mapreduce.framework.name</name>
+				<value>yarn</value>
+			</property>
+			<property>
+				<name>mapreduce.jobhistory.address</name>
+				<value>gclab1:10020</value>
+			</property>
+			<property>
+				<name>mapreduce.jobhistory.webapp.address</name>
+				<value>gclab1:19888</value>
+			</property>
+		</configuration>
+	yarn-site.xml
+		该文件为yarn框架的配置,主要是一些任务的启动位置
+		<configuration>
+			<property>
+				<name>yarn.resourcemanager.address</name>
+				<value>gclab1:8032</value>
+			</property>
+			<property>
+				<name>yarn.resourcemanager.scheduler.address</name>
+				<value>gclab1:8030</value>
+			</property>
+			<property>
+				<name>yarn.resourcemanager.webapp.address</name>
+				<value>gclab1:8088</value>
+			</property>
+			<property>
+				<name>yarn.resourcemanager.resource-tracker.address</name>
+				<value>gclab1:8031</value>
+			</property>
+			<property>
+				<name>yarn.resourcemanager.admin.address</name>
+				<value>gclab1:8033</value>
+			</property>
+			<property>
+				<name>yarn.nodemanager.aux-services</name>
+				<value>mapreduce_shuffle</value>
+			</property>
+			<property>
+				<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+				<value>org.apache.hadoop.mapred.ShuffleHandler</value>
+			</property>
+		</configuration>
+
+
+将OS拷贝一份作为gclab2.oracle.com (IP:192.168.2.22)
+配制ssh等效性
+	只使用rsa加密方式
+	注意：authorized_keys文件的权限应为600或644，太小或太大都会无效。
+
+执行Hadoop命令：
+	在执行命令时基本上都会遇到如下Warning，但不能紧，以下的操作都能正常执行。
+		15/11/25 18:25:04 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+	分别在gclab1、gclab2上进行HDFS格式化：
+		./bin/hdfs namenode -format
+		此时在各节点的/opt/data1下就能看到dfs/name文件夹和一些子文件夹、文件；
+		但此时还不会有dfs/data文件夹，对于dfs/data文件夹是在./sbin/start-dfs.sh时才自动生成。
+	在Master节点gclab1上执行启动命令启动HDFS：
+		./sbin/start-dfs.sh
+		./sbin/stop-dfs.sh关闭HDFS。
+
+		通过jps可以查看启动了哪些服务进程。
+			在Master上NameNode、SecondaryNameNode、DataNode进程；
+			在Slave上只有DataNode进程；
+		之前我在Slave上的core-site.xml里没做配制，启动后2个节点的DataNode进程总是自动关闭。
+
+	在Master节点gclab1上执行启动命令启动yarn：
+		./sbin/start-yarn.sh
+		./sbin/stop-yarn.sh
+		
+		在Master上会启动ResourceManager、NodeManager；
+		在Slave上会启动NodeManager；
+
+		此外，可以通过执行./sbin/start-all.sh和./sbin/stop-all.sh来完成上面2组命令的动作。
+
+	查看集群信息：
+		查看集群状态：./bin/hdfs dfsadmin –report
+		查看文件块组成： ./bin/hdfsfsck / -files -blocks
+		查看HDFS: http://192.168.2.21:50070（主机IP）
+		查看HDFS: http://192.168.2.21:50090（主机IP）
+		查看RM: http:// 192.168.2.21:8088（主机IP）
+
+		
+	HDFS启动正常后就可以进行Hadoop文件操作了：
+		./bin/hadoop fs -ls / (注意：/不能省，否则会报错)
+		./bin/hadoop fs -mkdir /dir1
+		./bin/hadoop fs -copyFromLocal /opt/test1/mytest1.txt /dir1
+		./bin/hadoop fs -cat /dir1/mytest1.txt
+	    也可以运行Hadoop自带的测试程序：
+		wordcount单词统计程序——测试MapRedurce：
+		./bin/hadoop jar /opt/hadoop-2.6.2/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.2.jar wordcount /dir1 /output1
+	
+Hive的安装配制与使用：
+	在Win7下已安装了Mysql5.5 Server, root的密码为root123。
+	tar -xzvf hive-0.9.0.tar.gz
+	mv hive-0.9.0 /opt
+
+	在/root/.bash_profile和/opt/hive-0.9.0/bin/hive-config.sh最后增加以下内容：
+		export JAVA_HOME=/usr/java/jdk1.7.0_17
+		export HADOOP_HOME=/opt/hadoop-2.6.2
+		export HIVE_HOME=/opt/hive-0.9.0
+		export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$HIVE_HOME/lib
+		export PATH=$JAVA_HOME/bin:$HIVE_HOME/bin:$HADOOP_HOME/bin:$PATH:$HOME/bin
+
+	在/opt/hive-0.9.0/conf下做以下配制：
+		cp hive-default.xml.template hive-default.xml
+		cp hive-default.xml.template hive-site.xml
+		“hive-default.xml”用于保留默认配置,“hive-site.xml”用于个性化配置,可覆盖默认配置。
+		logout再重新login，使.bash_profile里的配制对当前用户有效。
+	执行hive命令，看是否配制成功，能否正常使用hive：
+		[root@gclab1 ~]# hive
+		WARNING: org.apache.hadoop.metrics.jvm.EventCounter is deprecated. Please use org.apache.hadoop.log.metrics.EventCounter in all the log4j.properties files.
+		Logging initialized using configuration in jar:file:/opt/hive-0.9.0/lib/hive-common-0.9.0.jar!/hive-log4j.properties
+		Hive history file=/tmp/root/hive_job_log_root_201511252007_170119118.txt
+		SLF4J: Class path contains multiple SLF4J bindings.
+		SLF4J: Found binding in [jar:file:/opt/hadoop-2.6.2/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+		SLF4J: Found binding in [jar:file:/opt/hive-0.9.0/lib/slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+		SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+		SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+		hive> show databases;
+		OK
+		default
+		Time taken: 14.025 seconds
+		hive> show tables;
+		OK
+		Time taken: 2.183 seconds
+		hive> create table tuser1(id int, name string);
+		OK
+		Time taken: 1.36 seconds
+		hive> show tables;
+		OK
+		tuser1
+		Time taken: 0.321 seconds
+		hive> select * from tuser1;
+		OK
+		Time taken: 1.006 seconds
+		hive> 
+
+		解决的办法就是在 hive-log4j.properties 中将 log4j.appender.EventCounter 的值修改为org.apache.hadoop.log.metrics.EventCounter,这样就不会报。该文件在“/home/hadoop/hive-0.9.0/conf”下面。
+		[root@gclab1 conf]# cp hive-log4j.properties.template hive-log4j.properties
+	以上对Hive的元数据没有使用DB进行存储，因此这些MetaData会自动存储在/root/metastore_db文件夹中。
+	当然，我们可以使用DB来存储Hive的meta data，这里我已在win7上安装了mysql，就使用mysql来存储演示：
+
+ZooKeeper的安装配制与使用：
+	安装包：zookeeper-3.4.5.tar.gz
+	ZooKeeper是一个分布式开源框架，提供了协调分布式应用的基本服务，它向外部应用暴露一组通用服务——分布式同步（Distributed Synchronization）、命名服务（Naming Service）、集群维护（Group Maintenance）等，简化分布式应用协调及其管理的难度，提供高性能的分布式服务。
+	ZooKeeper本身可以以Standalone模式安装运行，不过它的长处在于通过分布式ZooKeeper集群（一个Leader，多个Follower），基于一定的策略来保证ZooKeeper集群的稳定性和可用性，从而实现分布式应用的可靠性。
+
+	分为单节点安装和集群安装
+
+	集群安装：
+		vi /root/.bash_profile
+			export ZOOKEEPER_HOME=/opt/zookeeper-3.4.5
+			export CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$ZOOKEEPER_HOME/lib
+			PATH=$JAVA_HOME/bin:$ZOOKEEPER_HOME/bin:$PATH:$HOME/bin
+		tar -xzvf zookeeper-3.4.5.tar.gz
+		mv zookeeper-3.4.5.tar.gz /opt/
+		chown root:root zookeeper-3.4.5
+		cp /opt/zookeeper-3.4.5/conf/zoo_sample.cfg /opt/zookeeper-3.4.5/conf/zoo.cfg
+		vi /opt/zookeeper-3.4.5/conf/zoo.cfg
+			tickTime=2000
+			dataDir=/opt/zookeeperdata1
+			clientPort=2181
+			initLimit=5
+			syncLimit=2
+			server.1=gclab1:2888:3888
+			server.2=gclab2:2888:3888
+		配置说明：
+			tickTime：这个时间是作为 Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。
+			dataDir：顾名思义就是 Zookeeper 保存数据的目录，默认情况下，Zookeeper 将写数据的日志文件也保存在这个目录里。
+			clientPort：这个端口就是客户端连接 Zookeeper 服务器的端口，Zookeeper 会监听这个端口，接受客户端的访问请求。
+		echo "1" > /opt/zookeeperdata1/myid （在gclab2上要执行echo "2"）
+		对以上的配制操作在每个节点上都执行一遍，这样就完成了集群的安装配制了。
+		
+	集群的启动与状态检查：
+		在各节点上分别执行./bin/zkServer.sh start/status/stop/restart
+		也可以通过这个命令来启动zookeeper: ./bin/zookeeper-server-start.sh config/zookeeper.properties
+		我启动的顺序是gclab1->gclab2，由于ZooKeeper集群启动的时候，每个结点都试图去连接集群中的其它结点，先启动的肯定连不上后面还没启动的，所以上面日志前面部分的异常是可以忽略的。
+		通过后面部分log可以看到，集群在选出一个Leader后，其它的就是follower了，最后稳定了。其他结点可能也出现类似问题，属于正常。
+
+		启动后，会在dataDir参数指定的folder下生成zookeeper_server.pid文件，里面存的就是QuorumPeerMain的pid。
+
+		在各节点上分别执行jps可查看进程，通过./bin/zkServer.sh status可查看集群中各个结点的角色（或是Leader，或是Follower）
+		[root@gclab1 zookeeper-3.4.5]# jps
+		4352 NameNode
+		4883 NodeManager
+		8048 Jps
+		4447 DataNode
+		4582 SecondaryNameNode
+		7476 QuorumPeerMain --------->zookeeper的进程
+		4785 ResourceManager
+		
+		[root@gclab2 zookeeper-3.4.5]# jps
+		6130 QuorumPeerMain --------->zookeeper的进程
+		6561 Jps
+		4430 NodeManager
+		4305 DataNode
+
+		[root@gclab1 zookeeper-3.4.5]# ./bin/zkServer.sh status
+		JMX enabled by default
+		Using config: /opt/zookeeper-3.4.5/bin/../conf/zoo.cfg
+		Mode: follower
+		
+		[root@gclab2 zookeeper-3.4.5]# ./bin/zkServer.sh status
+		JMX enabled by default
+		Using config: /opt/zookeeper-3.4.5/bin/../conf/zoo.cfg
+		Mode: leader
+
+	客户端连接Zookeeper集群：
+		可以通过客户端脚本，连接到ZooKeeper集群上。对于客户端来说，ZooKeeper是一个整体（ensemble），连接到ZooKeeper集群实际上感觉在独享整个集群的服务，所以，你可以在任何一个结点上建立到服务集群的连接。
+			[root@gclab2 bin]# ./zkCli.sh -server gclab1:2181
+			Connecting to gclab1:2181
+			2015-11-26 14:39:04,416 [myid:] - INFO  [main:Environment@100] - Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+			2015-11-26 14:39:04,427 [myid:] - INFO  [main:Environment@100] - Client environment:host.name=gclab2.oracle.com
+			2015-11-26 14:39:04,431 [myid:] - INFO  [main:Environment@100] - Client environment:java.version=1.7.0_17
+			2015-11-26 14:39:04,435 [myid:] - INFO  [main:Environment@100] - Client environment:java.vendor=Oracle Corporation
+			2015-11-26 14:39:04,438 [myid:] - INFO  [main:Environment@100] - Client environment:java.home=/usr/java/jdk1.7.0_17/jre
+			2015-11-26 14:39:04,441 [myid:] - INFO  [main:Environment@100] - Client environment:java.class.path=/opt/zookeeper-3.4.5/bin/../build/classes:/opt/zookeeper-3.4.5/bin/../build/lib/*.jar:/opt/zookeeper-3.4.5/bin/../lib/slf4j-log4j12-1.6.1.jar:/opt/zookeeper-3.4.5/bin/../lib/slf4j-api-1.6.1.jar:/opt/zookeeper-3.4.5/bin/../lib/netty-3.2.2.Final.jar:/opt/zookeeper-3.4.5/bin/../lib/log4j-1.2.15.jar:/opt/zookeeper-3.4.5/bin/../lib/jline-0.9.94.jar:/opt/zookeeper-3.4.5/bin/../zookeeper-3.4.5.jar:/opt/zookeeper-3.4.5/bin/../src/java/lib/*.jar:/opt/zookeeper-3.4.5/bin/../conf:/usr/java/jdk1.7.0_17/lib/dt.jar:/usr/java/jdk1.7.0_17/lib/tools.jar:/opt/zookeeper-3.4.5/lib
+			2015-11-26 14:39:04,445 [myid:] - INFO  [main:Environment@100] - Client environment:java.library.path=/usr/java/packages/lib/i386:/lib:/usr/lib
+			2015-11-26 14:39:04,451 [myid:] - INFO  [main:Environment@100] - Client environment:java.io.tmpdir=/tmp
+			2015-11-26 14:39:04,455 [myid:] - INFO  [main:Environment@100] - Client environment:java.compiler=<NA>
+			2015-11-26 14:39:04,459 [myid:] - INFO  [main:Environment@100] - Client environment:os.name=Linux
+			2015-11-26 14:39:04,463 [myid:] - INFO  [main:Environment@100] - Client environment:os.arch=i386
+			2015-11-26 14:39:04,468 [myid:] - INFO  [main:Environment@100] - Client environment:os.version=2.6.18-8.el5
+			2015-11-26 14:39:04,470 [myid:] - INFO  [main:Environment@100] - Client environment:user.name=root
+			2015-11-26 14:39:04,473 [myid:] - INFO  [main:Environment@100] - Client environment:user.home=/root
+			2015-11-26 14:39:04,476 [myid:] - INFO  [main:Environment@100] - Client environment:user.dir=/opt/zookeeper-3.4.5/bin
+			2015-11-26 14:39:04,485 [myid:] - INFO  [main:ZooKeeper@438] - Initiating client connection, connectString=gclab1:2181 sessionTimeout=30000 watcher=org.apache.zookeeper.ZooKeeperMain$MyWatcher@59cbda
+			2015-11-26 14:39:04,569 [myid:] - INFO  [main-SendThread(gclab1.oracle.com:2181):ClientCnxn$SendThread@966] - Opening socket connection to server gclab1.oracle.com/192.168.2.21:2181. Will not attempt to authenticate using SASL (unknown error)
+			2015-11-26 14:39:04,588 [myid:] - INFO  [main-SendThread(gclab1.oracle.com:2181):ClientCnxn$SendThread@849] - Socket connection established to gclab1.oracle.com/192.168.2.21:2181, initiating session
+			Welcome to ZooKeeper!
+			JLine support is enabled
+			2015-11-26 14:39:04,726 [myid:] - INFO  [main-SendThread(gclab1.oracle.com:2181):ClientCnxn$SendThread@1207] - Session establishment complete on server gclab1.oracle.com/192.168.2.21:2181, sessionid = 0x151424bfef50000, negotiated timeout = 30000
+			
+			WATCHER::
+			
+			WatchedEvent state:SyncConnected type:None path:null
+			[zk: gclab1:2181(CONNECTED) 0] quit
+			Quitting...
+			2015-11-26 14:43:19,276 [myid:] - INFO  [main:ZooKeeper@684] - Session: 0x151424bfef50000 closed
+			2015-11-26 14:43:19,281 [myid:] - INFO  [main-EventThread:ClientCnxn$EventThread@509] - EventThread shut down
+			[root@gclab2 bin]# 
+		当连接成功后，在client上执行jps可以看到多了一个ZooKeeperMain进程。
+
+    Zookeeper shell查看zookeeper上存储的树状结构信息：
+				[root@fhlab1 bin]# ./zookeeper-shell.sh 127.0.0.1
+				Connecting to 127.0.0.1
+				Welcome to ZooKeeper!
+				JLine support is disabled
+				
+				WATCHER::
+				
+				WatchedEvent state:SyncConnected type:None path:null
+				help --------------->查看zookeeper的使用命令
+				ZooKeeper -server host:port cmd args
+				        connect host:port
+				        get path [watch]
+				        ls path [watch]
+				        set path data [version]
+				        rmr path
+				        delquota [-n|-b] path
+				        quit 
+				        printwatches on|off
+				        create [-s] [-e] path data acl
+				        stat path [watch]
+				        close 
+				        ls2 path [watch]
+				        history 
+				        listquota path
+				        setAcl path acl
+				        getAcl path
+				        sync path
+				        redo cmdno
+				        addauth scheme auth
+				        delete path [version]
+				        setquota -n|-b val path
+				ls / --------------->查看zookeeper中树状存储的信息
+				[isr_change_notification, zookeeper, admin, consumers, cluster, config, latest_producer_id_block, storm, brokers, controller_epoch]
+				ls /storm
+				[backpressure, workerbeats, nimbuses, supervisors, errors, logconfigs, credentials, storms, blobstoremaxkeysequencenumber, assignments, leader-lock, blobstore]
+				ls /storm/storms
+				[wordcount-1-1500097028]
+				get /storm/storms --------------->查看树上各节点的信息
+				
+				cZxid = 0x5d
+				ctime = Sat Apr 22 00:40:32 CST 2017
+				mZxid = 0x5d
+				mtime = Sat Apr 22 00:40:32 CST 2017
+				pZxid = 0x9e5
+				cversion = 1
+				dataVersion = 0
+				aclVersion = 0
+				ephemeralOwner = 0x0
+				dataLength = 1
+				numChildren = 1
+				
+				create /fh fhtest  --------------->在zookeeper树上创建节点/fh，并给予名称fhtest
+				Created /fh
+				ls /
+				[isr_change_notification, zookeeper, admin, fh, consumers, cluster, config, latest_producer_id_block, storm, brokers, controller_epoch]
+				get /fh 
+				fhtest
+				cZxid = 0x15e7
+				ctime = Sat Jul 15 19:56:27 CST 2017
+				mZxid = 0x15e7
+				mtime = Sat Jul 15 19:56:27 CST 2017
+				pZxid = 0x15e7
+				cversion = 0
+				dataVersion = 0
+				aclVersion = 0
+				ephemeralOwner = 0x0
+				dataLength = 6
+				numChildren = 0
+				
+				set /fh fhtest2   --------------->修改结点的信息
+				cZxid = 0x15e7
+				ctime = Sat Jul 15 19:56:27 CST 2017
+				mZxid = 0x16c0
+				mtime = Sat Jul 15 19:59:27 CST 2017
+				pZxid = 0x15e7
+				cversion = 0
+				dataVersion = 1
+				aclVersion = 0
+				ephemeralOwner = 0x0
+				dataLength = 7
+				numChildren = 0
+				
+				get /fh 
+				fhtest2   --------------->可以看到节点的信息被改了
+				cZxid = 0x15e7
+				ctime = Sat Jul 15 19:56:27 CST 2017
+				mZxid = 0x16c0
+				mtime = Sat Jul 15 19:59:27 CST 2017
+				pZxid = 0x15e7
+				cversion = 0
+				dataVersion = 1
+				aclVersion = 0
+				ephemeralOwner = 0x0
+				dataLength = 7
+				numChildren = 0
+
+HBase的安装配制与使用：
+	前提要求：在启动HBase之前，必须先安装并启动Zookeeper集群。
+	HBase集群的安装配制：
+		vi /root/.bash_profile
+			export HBASE_HOME=/opt/hbase-1.1.2
+			export HBASE_CONF_DIR=/opt/hbase-1.1.2/conf
+			export CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$ZOOKEEPER_HOME/lib:$HBASE_HOME/lib
+			PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$ZOOKEEPER_HOME/bin:$HBASE_HOME/bin:$PATH:$HOME/bin
+		tar -xzvf hbase-0.94.27.tar.gz
+		mv hbase-0.94.27 /opt/
+		chown -R root:root /opt/hbase-1.1.2
+		配制hbase-env.sh, hbase-site.xml, regionservers 3个配制文件：
+		vi hbase-env.sh
+			export HBASE_OPTS="$HBASE_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode"
+			export JAVA_HOME=/usr/java/jdk1.7.0_17  --------------->有时OS user下没配就会在start-hbase.sh时报错，这里加上这一条就不报错了。
+			export HBASE_MANAGES_ZK=false  --------------->是否使用hbase自带的zookeeper。
+			export HBASE_HOME=/opt/hbase-1.1.2
+			export HADOOP_HOME=/opt/hadoop-2.6.2
+		vi hbase-site.xml
+			<configuration>
+				<property>
+					<name>hbase.rootdir</name>
+					<value>hdfs://gclab1:9000/hbase</value>  --------->要与Hadoop匹配。问：是否需要手动在HDFS中创建/hbase这个folder? 2017-4-9回复：不需要手动创建，他会自动创建。
+				</property>
+				<property>
+					<name>hbase.cluster.distributed</name>
+					<value>true</value>
+				</property>
+				<property>
+					<name>hbase.master</name>
+					<value>gclab1:60000</value>
+				</property>
+				<property>
+					<name>hbase.master.port</name>
+					<value>60000</value>
+					<description>The port master should bind to.</description>
+				</property>
+			
+				<property>
+					<name>hbase.zookeeper.quorum</name>
+					<value>gclab1,gclab2</value>
+				</property>
+			</configuration>
+		vi regionservers
+			gclab1
+			gclab2
+	启动HBase，并检查运行状态：
+		只需要在Master节点上执行./bin/start-hbase.sh就可以启动整个集群的所有节点；
+			启动后，在hdfs://gclab1:9000/hbase下有自动创建HBase相应的文件。
+		当然，如果有第二个Master，那就要再第二个Master节点上执行$ ./hbase-daemon.sh start master来启动第二个Master。
+			[root@gclab1 ~]# jps （启动前）
+			9041 Jps
+			4352 NameNode
+			4883 NodeManager
+			4447 DataNode
+			4582 SecondaryNameNode
+			7476 QuorumPeerMain
+			4785 ResourceManager
+			[root@gclab1 ~]# start-hbase.sh 
+			starting master, logging to /opt/hbase-1.1.2/logs/hbase-root-master-gclab1.oracle.com.out
+			gclab2: starting regionserver, logging to /opt/hbase-1.1.2/logs/hbase-root-regionserver-gclab2.oracle.com.out
+			gclab1: starting regionserver, logging to /opt/hbase-1.1.2/logs/hbase-root-regionserver-gclab1.oracle.com.out
+			[root@gclab1 ~]# jps
+			5536 ResourceManager
+			5112 NameNode
+			5334 SecondaryNameNode
+			10534 HMaster  ---------->Master节点上的HBase进程
+			11109 Jps
+			5205 DataNode
+			6671 QuorumPeerMain
+			10656 HRegionServer  ---------->Master节点作为Slave上的HBase进程
+			5635 NodeManager
+			
+			[root@gclab2 opt]# jps
+			5144 NodeManager
+			7345 HRegionServer  ---------->Slave节点上的HBase进程
+			7710 Jps
+			6033 QuorumPeerMain
+			5025 DataNode
+			[root@gclab2 opt]#
+		查看HBase的log：
+			在HBase安装Folder下的logs里有master和regionserver的log file. 通过检查log，可以更详细的确认HBase的运行状态与错误信息。
+			在master log file里可以通过以下信息找到HBase集群网页版Manager的port，进而可以通过网页版进行查看和管理HBase集群。
+				2015-11-27 14:51:12,982 INFO  [main] http.HttpServer: Added global filter 'safety' (class=org.apache.hadoop.hbase.http.HttpServer$QuotingInputFilter)
+				2015-11-27 14:51:12,986 INFO  [main] http.HttpServer: Added filter static_user_filter (class=org.apache.hadoop.hbase.http.lib.StaticUserWebFilter$StaticUserFilter) to context master
+				2015-11-27 14:51:12,986 INFO  [main] http.HttpServer: Added filter static_user_filter (class=org.apache.hadoop.hbase.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+				2015-11-27 14:51:12,986 INFO  [main] http.HttpServer: Added filter static_user_filter (class=org.apache.hadoop.hbase.http.lib.StaticUserWebFilter$StaticUserFilter) to context logs
+				2015-11-27 14:51:13,146 INFO  [main] http.HttpServer: Jetty bound to port 16010
+				2015-11-27 14:51:13,146 INFO  [main] mortbay.log: jetty-6.1.26
+				2015-11-27 14:51:14,858 INFO  [main] mortbay.log: Started SelectChannelConnector@0.0.0.0:16010
+			访问http://192.168.2.21:60030/rs-status可查看RegionServer的initail状态。
+		至此 hadoop+zookeeper+hbase安装完成
+		启动顺序: hadoop -> zookeeper -> hbase -> 第二个HMaster，关闭顺序正好相反。注意 一定要按顺序停止，如果先停zookeeper再停hbase的话
+
+	安装中遇到的问题：
+		在执行start-hbase.sh后，使用hbase shell登入hbase，执行list查看表时报错，再jps查看进程，发现HMaster进程过一会就自动关闭了。
+		为了进一步得到更详细的错误信息找到问题的原因，我去查看HBase的master log，发现以下信息：
+			2015-11-27 12:43:13,272 FATAL org.apache.hadoop.hbase.master.HMaster: Unhandled exception. Starting shutdown.
+			org.apache.hadoop.ipc.RemoteException: Server IPC version 9 cannot communicate with client version 4
+				at org.apache.hadoop.ipc.Client.call(Client.java:1070)
+				at org.apache.hadoop.ipc.RPC$Invoker.invoke(RPC.java:225)
+				at com.sun.proxy.$Proxy10.getProtocolVersion(Unknown Source)
+				at org.apache.hadoop.ipc.RPC.getProxy(RPC.java:396)
+				at org.apache.hadoop.ipc.RPC.getProxy(RPC.java:379)
+				at org.apache.hadoop.hdfs.DFSClient.createRPCNamenode(DFSClient.java:119)
+				at org.apache.hadoop.hdfs.DFSClient.<init>(DFSClient.java:238)
+				at org.apache.hadoop.hdfs.DFSClient.<init>(DFSClient.java:203)
+				at org.apache.hadoop.hdfs.DistributedFileSystem.initialize(DistributedFileSystem.java:89)
+				at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:1386)
+				at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:66)
+				at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:1404)
+				at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:254)
+				at org.apache.hadoop.fs.Path.getFileSystem(Path.java:187)
+				at org.apache.hadoop.hbase.util.FSUtils.getRootDir(FSUtils.java:674)
+				at org.apache.hadoop.hbase.master.MasterFileSystem.<init>(MasterFileSystem.java:112)
+				at org.apache.hadoop.hbase.master.HMaster.finishInitialization(HMaster.java:573)
+				at org.apache.hadoop.hbase.master.HMaster.run(HMaster.java:433)
+				at java.lang.Thread.run(Thread.java:722)
+			2015-11-27 12:43:13,281 INFO org.apache.hadoop.hbase.master.HMaster: Aborting
+		原来是HBase的版本0.94.27不适应Hadoop-2.6.2版本，于是重新下载最近的HBase-1.1.2再重新部署就正常了。
+
+	HBase数据库的使用：
+		连接DB，Create/Disable/Drop/List table，Insert/update/delete/query records.
+			[root@gclab1 ~]# hbase shell
+			SLF4J: Class path contains multiple SLF4J bindings.
+			SLF4J: Found binding in [jar:file:/opt/hbase-1.1.2/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+			SLF4J: Found binding in [jar:file:/opt/hadoop-2.6.2/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+			SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+			SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+			2015-11-27 14:55:13,320 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+			HBase Shell; enter 'help<RETURN>' for list of supported commands.
+			Type "exit<RETURN>" to leave the HBase Shell
+			Version 1.1.2, rcc2b70cf03e3378800661ec5cab11eb43fafe0fc, Wed Aug 26 20:11:27 PDT 2015
+			
+			hbase(main):001:0> list
+			TABLE                                                                                                         
+			0 row(s) in 0.6800 seconds
+			
+			=> []
+			hbase(main):010:0> create 'student','info'
+			0 row(s) in 1.5190 seconds
+			
+			=> Hbase::Table - student
+			hbase(main):011:0> list
+			TABLE                                                                                                         
+			student                                                                                                       
+			1 row(s) in 0.0210 seconds
+			
+			=> ["student"]
+			hbase(main):012:0> desc 'student'
+			Table student is ENABLED                                                                                      
+			student                                                                                                       
+			COLUMN FAMILIES DESCRIPTION                                                                                   
+			{NAME => 'info', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'ROW', REPLICATION_SCOPE => '0', VERSIONS => '1
+			', COMPRESSION => 'NONE', MIN_VERSIONS => '0', TTL => 'FOREVER', KEEP_DELETED_CELLS => 'FALSE', BLOCKSIZE => '
+			65536', IN_MEMORY => 'false', BLOCKCACHE => 'true'}                                                           
+			1 row(s) in 0.2740 seconds
+			hbase(main):017:0> put 'student','Tom','info:name','Tom'
+			0 row(s) in 0.2270 seconds
+			
+			hbase(main):018:0> put 'student','Tom','info:sex','male'
+			0 row(s) in 0.0390 seconds
+			
+			hbase(main):020:0> scan 'student'
+			ROW                          COLUMN+CELL                                                                      
+			 Tom                         column=info:name, timestamp=1448610445903, value=Tom                             
+			 Tom                         column=info:sex, timestamp=1448610479000, value=male                             
+			1 row(s) in 0.0580 seconds
+			
+			hbase(main):026:0> disable 'student'
+			0 row(s) in 2.4550 seconds
+			hbase(main):029:0> drop 'student'
+			0 row(s) in 1.3200 seconds
+			
+			hbase(main):030:0> list
+			TABLE                                                                                                         
+			0 row(s) in 0.0200 seconds
+			
+			=> []
+			hbase(main):031:0> 
+
+Pig的安装配制与使用
+	Pig的应用
+		我们用MapReduce进行数据分析。当业务比较复杂的时候，使用MapReduce将会是一个很复杂的事情，比如你需要对数据进行很多预处理或转换，以便能够适应MapReduce的处理模式,另一方面，编写MapReduce程序，发布及运行作业都将是一个比较耗时的事情。
+		Pig的出现很好的弥补了这一不足。Pig能够让你专心于数据及业务本身，而不是纠结于数据的格式转换以及MapReduce程序的编写。本质是上来说，当你使用Pig进行处理时，Pig本身会在后台生成一系列的MapReduce操作来执行任务，但是这个过程对用户来说是透明的。
+	
+	Pig的安装
+		Pig是客户端程序，所以它的安装就是各机器独立的，不存在集群，它是用来处理Hadoop集群中存储在HDFS里的数据。所以在对Pig的使用，只需启动Hadoop即可，无需启动Hive、ZooKeeper、HBase等软件。
+		Pig作为客户端程序运行，即使你准备在Hadoop集群上使用Pig，你也不需要在集群上做任何安装。Pig从本地提交作业，并和Hadoop进行交互。
+		tar -xzvf pig-0.15.0.tar.gz
+		mv pig-0.15.0 /opt
+		vi /root/.bash_profile
+			export PIG_HOME=/home/hadoop/pig
+			export PATH=$PATH:$PIG_HOME/bin
+		验证安装
+			pig –help
+	
+	Pig执行模式——Pig有两种执行模式，分别为：
+			当Pig运行后，使用jps可以看到多了一个RunJar进程。
+		1）本地模式（Local）
+			本地模式下，Pig运行在单一的JVM中，可访问本地文件。该模式适用于处理小规模数据或学习之用。
+			运行以下命名设置为本地模式：
+			pig –x local
+		
+		2） MapReduce模式
+			在MapReduce模式下，Pig将查询转换为MapReduce作业提交给Hadoop（可以说群集，也可以说伪分布式）。
+			应该检查当前Pig版本是否支持你当前所用的Hadoop版本。某一版本的Pig仅支持特定版本的Hadoop，你可以通过访问Pig官网获取版本支持信息。
+		
+			Pig会用到HADOOP_HOME环境变量。如果该变量没有设置，Pig也可以利用自带的Hadoop库，但是这样就无法保证其自带肯定库和你实际使用的HADOOP版本是否兼容，所以建议显式设置HADOOP_HOME变量。且还需要设置如下变量：
+				exportPIG_CLASSPATH=$HADOOP_HOME/etc/hadoop
+			下一步，需要告诉Pig它所用Hadoop集群的Namenode和Jobtracker。一般情况下，正确安装配置Hadoop后，这些配置信息就已经可用了，不需要做额外的配置。
+		
+			Pig默认模式是mapreduce，你也可以用以下命令进行设置：
+				pig –x mapreduce
+	
+	运行Pig程序——Pig程序执行方式有三种:
+	
+		1）脚本方式
+			直接运行包含Pig脚本的文件，比如以下命令将运行本地scripts.pig文件中的所有命令：pig scripts.pig
+		
+		2） Grunt方式
+			Grunt提供了交互式运行环境，可以在命令行编辑执行命令。
+			Grund同时支持命令的历史记录，通过上下方向键访问。
+			Grund支持命令的自动补全功能。比如当你输入a =foreach b g时，按下Tab键，则命令行自动变成a = foreach b generate。你甚至可以自定义命令自动补全功能的详细方式。具体请参阅相关文档。
+		
+		3）嵌入式方式
+			可以在java中运行Pig程序，类似于使用JDBC运行SQL程序。
+	
+	Pig Latin编辑器
+		PigPen是一个Ecliipse插件，它提供了在Eclipse中开发运行Pig程序的常用功能，比如脚本编辑、运行等。下载地址：http://wiki.apache.org/pig/PigPen
+		其他一些编辑器也提供了编辑Pig脚本的功能，比如vim等。
+	
+	实验：测试使用pig进行各年温度数据进行加载、条件过滤、分类汇总、取各类的最高值
+		实验命令：
+			pig -x local
+			注意：每行命令都必须以分号结束
+			records = load '/opt/test1/testpig1.txt' as (year: chararray,temperature: int); ---->  加载文本数据，并保存到变量records中
+			dump records; ----> 查看变量records的值
+			describe records;  ---->查看变量records的内部数据结构
+			valid_records = filter records by temperature!=999;
+			grouped_records = group valid_records by year;  ---->根据year对valid_records进行group by
+			dump grouped_records;
+			describe grouped_records;
+			max_temperature = foreach grouped_records generate group,MAX(valid_records.temperature);
+			dump max_temperature;
+		
+		测试数据：vi /opt/test1/testpig1.txt
+			1990	21
+			1990	18
+			1991	21
+			1992	30
+			1992	999
+			1990	23
+	
+		实验具体操作过程：
+			[root@gclab1 ~]# pig -x mapreduce
+			15/11/27 22:39:16 INFO pig.ExecTypeProvider: Trying ExecType : LOCAL
+			15/11/27 22:39:16 INFO pig.ExecTypeProvider: Trying ExecType : MAPREDUCE
+			15/11/27 22:39:16 INFO pig.ExecTypeProvider: Picked MAPREDUCE as the ExecType
+			2015-11-27 22:39:16,291 [main] INFO  org.apache.pig.Main - Apache Pig version 0.15.0 (r1682971) compiled Jun 01 2015, 11:44:35
+			2015-11-27 22:39:16,292 [main] INFO  org.apache.pig.Main - Logging error messages to: /root/pig_1448635156284.log
+			2015-11-27 22:39:16,378 [main] INFO  org.apache.pig.impl.util.Utils - Default bootup file /root/.pigbootup not found
+			2015-11-27 22:39:18,216 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:39:18,217 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:39:18,218 [main] INFO  org.apache.pig.backend.hadoop.executionengine.HExecutionEngine - Connecting to hadoop file system at: hdfs://gclab1:9000
+			SLF4J: Class path contains multiple SLF4J bindings.
+			SLF4J: Found binding in [jar:file:/opt/hadoop-2.6.2/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+			SLF4J: Found binding in [jar:file:/opt/hbase-1.1.2/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+			SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+			SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+			2015-11-27 22:39:18,735 [main] WARN  org.apache.hadoop.util.NativeCodeLoader - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+			2015-11-27 22:39:20,443 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:39:20,445 [main] INFO  org.apache.pig.backend.hadoop.executionengine.HExecutionEngine - Connecting to map-reduce job tracker at: gclab1:9001
+			2015-11-27 22:39:20,447 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			grunt> quit
+			2015-11-27 22:42:47,375 [main] INFO  org.apache.pig.Main - Pig script completed in 3 minutes, 31 seconds and 481 milliseconds (211481 ms)
+			[root@gclab1 ~]# pig -x local
+			SLF4J: Class path contains multiple SLF4J bindings.
+			SLF4J: Found binding in [jar:file:/opt/hadoop-2.6.2/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+			SLF4J: Found binding in [jar:file:/opt/hbase-1.1.2/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+			SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+			SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+			15/11/27 22:42:56 INFO pig.ExecTypeProvider: Trying ExecType : LOCAL
+			15/11/27 22:42:56 INFO pig.ExecTypeProvider: Picked LOCAL as the ExecType
+			2015-11-27 22:42:56,999 [main] INFO  org.apache.pig.Main - Apache Pig version 0.15.0 (r1682971) compiled Jun 01 2015, 11:44:35
+			2015-11-27 22:42:56,999 [main] INFO  org.apache.pig.Main - Logging error messages to: /root/pig_1448635376995.log
+			2015-11-27 22:42:57,069 [main] INFO  org.apache.pig.impl.util.Utils - Default bootup file /root/.pigbootup not found
+			2015-11-27 22:42:57,715 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:42:57,716 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:42:57,723 [main] INFO  org.apache.pig.backend.hadoop.executionengine.HExecutionEngine - Connecting to hadoop file system at: file:///
+			2015-11-27 22:42:58,035 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			grunt> records = load '/opt/test1/testpig1.txt' as (year: chararray,temperature: int);
+			2015-11-27 22:43:06,354 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:43:06,356 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:43:06,358 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			grunt> dump records;
+			2015-11-27 22:43:22,369 [main] WARN  org.apache.hadoop.util.NativeCodeLoader - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+			2015-11-27 22:43:22,483 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig features used in the script: UNKNOWN
+			2015-11-27 22:43:22,598 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:43:22,602 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:43:22,603 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:43:22,864 [main] INFO  org.apache.pig.newplan.logical.optimizer.LogicalPlanOptimizer - {RULES_ENABLED=[AddForEach, ColumnMapKeyPrune, ConstantCalculator, GroupByConstParallelSetter, LimitOptimizer, LoadTypeCastInserter, MergeFilter, MergeForEach, PartitionFilterOptimizer, PredicatePushdownOptimizer, PushDownForEachFlatten, PushUpFilter, SplitFilter, StreamTypeCastInserter]}
+			2015-11-27 22:43:23,364 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler - File concatenation threshold: 100 optimistic? false
+			2015-11-27 22:43:23,458 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size before optimization: 1
+			2015-11-27 22:43:23,459 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size after optimization: 1
+			2015-11-27 22:43:23,606 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:43:23,616 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:43:23,817 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - session.id is deprecated. Instead, use dfs.metrics.session-id
+			2015-11-27 22:43:23,821 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Initializing JVM Metrics with processName=JobTracker, sessionId=
+			2015-11-27 22:43:23,923 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.MRScriptState - Pig script settings are added to the job
+			2015-11-27 22:43:23,941 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.reduce.markreset.buffer.percent is deprecated. Instead, use mapreduce.reduce.markreset.buffer.percent
+			2015-11-27 22:43:23,943 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - mapred.job.reduce.markreset.buffer.percent is not set, set to default 0.3
+			2015-11-27 22:43:23,944 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.output.compress is deprecated. Instead, use mapreduce.output.fileoutputformat.compress
+			2015-11-27 22:43:24,041 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting up single store job
+			2015-11-27 22:43:24,131 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Key [pig.schematuple] is false, will not generate code.
+			2015-11-27 22:43:24,132 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Starting process to move generated code to distributed cacche
+			2015-11-27 22:43:24,133 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Distributed cache not supported or needed in local mode. Setting key [pig.schematuple.local.dir] with code temp directory: /tmp/1448635404131-0
+			2015-11-27 22:43:24,243 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 1 map-reduce job(s) waiting for submission.
+			2015-11-27 22:43:24,245 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker.http.address is deprecated. Instead, use mapreduce.jobtracker.http.address
+			2015-11-27 22:43:24,293 [JobControl] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:24,721 [JobControl] WARN  org.apache.hadoop.mapreduce.JobResourceUploader - No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+			2015-11-27 22:43:24,850 [JobControl] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat - Total input paths to process : 1
+			2015-11-27 22:43:24,851 [JobControl] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : 1
+			2015-11-27 22:43:24,918 [JobControl] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths (combined) to process : 1
+			2015-11-27 22:43:25,028 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - number of splits:1
+			2015-11-27 22:43:25,410 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - Submitting tokens for job: job_local723574062_0001
+			2015-11-27 22:43:25,921 [JobControl] INFO  org.apache.hadoop.mapreduce.Job - The url to track the job: http://localhost:8080/
+			2015-11-27 22:43:25,923 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - HadoopJobId: job_local723574062_0001
+			2015-11-27 22:43:25,923 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Processing aliases records
+			2015-11-27 22:43:25,923 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - detailed locations: M: records[1,10],records[-1,-1] C:  R: 
+			2015-11-27 22:43:25,943 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 0% complete
+			2015-11-27 22:43:25,945 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Running jobs are [job_local723574062_0001]
+			2015-11-27 22:43:25,955 [Thread-15] INFO  org.apache.hadoop.mapred.LocalJobRunner - OutputCommitter set in config null
+			2015-11-27 22:43:26,012 [Thread-15] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:43:26,014 [Thread-15] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.reduce.markreset.buffer.percent is deprecated. Instead, use mapreduce.reduce.markreset.buffer.percent
+			2015-11-27 22:43:26,017 [Thread-15] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:43:26,019 [Thread-15] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:43:26,030 [Thread-15] INFO  org.apache.hadoop.mapred.LocalJobRunner - OutputCommitter is org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigOutputCommitter
+			2015-11-27 22:43:26,217 [Thread-15] INFO  org.apache.hadoop.mapred.LocalJobRunner - Waiting for map tasks
+			2015-11-27 22:43:26,221 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - Starting task: attempt_local723574062_0001_m_000000_0
+			2015-11-27 22:43:26,400 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task -  Using ResourceCalculatorProcessTree : [ ]
+			2015-11-27 22:43:26,418 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Processing split: Number of splits :1
+			Total Length = 50
+			Input split[0]:
+			   Length = 50
+			   ClassName: org.apache.hadoop.mapreduce.lib.input.FileSplit
+			   Locations:
+			
+			-----------------------
+			
+			2015-11-27 22:43:26,482 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigRecordReader - Current split being processed file:/opt/test1/testpig1.txt:0+50
+			2015-11-27 22:43:26,566 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.data.SchemaTupleBackend - Key [pig.schematuple] was not set... will not generate code.
+			2015-11-27 22:43:26,596 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapOnly$Map - Aliases being processed per job phase (AliasName[line,offset]): M: records[1,10],records[-1,-1] C:  R: 
+			2015-11-27 22:43:26,624 [LocalJobRunner Map Task Executor #0] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigHadoopLogger - org.apache.pig.backend.hadoop.executionengine.physicalLayer.expressionOperators.POProject(ACCESSING_NON_EXISTENT_FIELD): Attempt to access field which was not found in the input
+			2015-11-27 22:43:26,649 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - 
+			2015-11-27 22:43:26,651 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task:attempt_local723574062_0001_m_000000_0 is done. And is in the process of committing
+			2015-11-27 22:43:26,689 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - 
+			2015-11-27 22:43:26,691 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task attempt_local723574062_0001_m_000000_0 is allowed to commit now
+			2015-11-27 22:43:26,707 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - Saved output of task 'attempt_local723574062_0001_m_000000_0' to file:/tmp/temp-447264802/tmp-1880779227/_temporary/0/task_local723574062_0001_m_000000
+			2015-11-27 22:43:26,711 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - map
+			2015-11-27 22:43:26,711 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task 'attempt_local723574062_0001_m_000000_0' done.
+			2015-11-27 22:43:26,712 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local723574062_0001_m_000000_0
+			2015-11-27 22:43:26,714 [Thread-15] INFO  org.apache.hadoop.mapred.LocalJobRunner - map task executor complete.
+			2015-11-27 22:43:26,955 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:26,962 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:26,963 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+			2015-11-27 22:43:26,963 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+			2015-11-27 22:43:26,965 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:27,118 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete
+			2015-11-27 22:43:27,126 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.SimplePigStats - Script Statistics: 
+			
+			HadoopVersion   PigVersion      UserId  StartedAt       FinishedAt      Features
+			2.6.2   0.15.0  root    2015-11-27 22:43:23     2015-11-27 22:43:27     UNKNOWN
+			
+			Success!
+			
+			Job Stats (time in seconds):
+			JobId   Maps    Reduces MaxMapTime      MinMapTime      AvgMapTime      MedianMapTime   MaxReduceTime   MinReduceTime   AvgReduceTimeMedianReducetime Alias   Feature Outputs
+			job_local723574062_0001 1       0       n/a     n/a     n/a     n/a     0       0       0       0       records MAP_ONLY        file:/tmp/temp-447264802/tmp-1880779227,
+			
+			Input(s):
+			Successfully read 7 records from: "/opt/test1/testpig1.txt"
+			
+			Output(s):
+			Successfully stored 7 records in: "file:/tmp/temp-447264802/tmp-1880779227"
+			
+			Counters:
+			Total records written : 7
+			Total bytes written : 0
+			Spillable Memory Manager spill count : 0
+			Total bags proactively spilled: 0
+			Total records proactively spilled: 0
+			
+			Job DAG:
+			job_local723574062_0001
+			
+			
+			2015-11-27 22:43:27,130 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:27,134 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:27,139 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:43:27,158 [main] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Encountered Warning ACCESSING_NON_EXISTENT_FIELD 1 time(s).
+			2015-11-27 22:43:27,158 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Success!
+			2015-11-27 22:43:27,169 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:43:27,176 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:43:27,176 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:43:27,178 [main] WARN  org.apache.pig.data.SchemaTupleBackend - SchemaTupleBackend has already been initialized
+			2015-11-27 22:43:27,233 [main] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat - Total input paths to process : 1
+			2015-11-27 22:43:27,234 [main] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : 1
+			(1990,21)
+			(1990,18)
+			(1991,21)
+			(1992,30)
+			(1992,999)
+			(1990,23)
+			(,)
+			grunt> describe records;
+			records: {year: chararray,temperature: int}
+			grunt> valid_records = filter records by temperature!=999;
+			grunt> grouped_records = group valid_records by year;
+			grunt> dump grouped_records;
+			2015-11-27 22:47:30,605 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig features used in the script: GROUP_BY,FILTER
+			2015-11-27 22:47:30,747 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:47:30,749 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:47:30,750 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:47:30,751 [main] WARN  org.apache.pig.data.SchemaTupleBackend - SchemaTupleBackend has already been initialized
+			2015-11-27 22:47:30,754 [main] INFO  org.apache.pig.newplan.logical.optimizer.LogicalPlanOptimizer - {RULES_ENABLED=[AddForEach, ColumnMapKeyPrune, ConstantCalculator, GroupByConstParallelSetter, LimitOptimizer, LoadTypeCastInserter, MergeFilter, MergeForEach, PartitionFilterOptimizer, PredicatePushdownOptimizer, PushDownForEachFlatten, PushUpFilter, SplitFilter, StreamTypeCastInserter]}
+			2015-11-27 22:47:30,808 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler - File concatenation threshold: 100 optimistic? false
+			2015-11-27 22:47:30,858 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size before optimization: 1
+			2015-11-27 22:47:30,859 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size after optimization: 1
+			2015-11-27 22:47:30,934 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:47:30,937 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:47:30,941 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:30,960 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.MRScriptState - Pig script settings are added to the job
+			2015-11-27 22:47:30,964 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - mapred.job.reduce.markreset.buffer.percent is not set, set to default 0.3
+			2015-11-27 22:47:30,969 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Reduce phase detected, estimating # of required reducers.
+			2015-11-27 22:47:30,979 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Using reducer estimator: org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.InputSizeReducerEstimator
+			2015-11-27 22:47:30,993 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.InputSizeReducerEstimator - BytesPerReducer=1000000000 maxReducers=999 totalInputFileSize=50
+			2015-11-27 22:47:30,994 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting Parallelism to 1
+			2015-11-27 22:47:30,997 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+			2015-11-27 22:47:31,028 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting up single store job
+			2015-11-27 22:47:31,032 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Key [pig.schematuple] is false, will not generate code.
+			2015-11-27 22:47:31,033 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Starting process to move generated code to distributed cacche
+			2015-11-27 22:47:31,033 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Distributed cache not supported or needed in local mode. Setting key [pig.schematuple.local.dir] with code temp directory: /tmp/1448635651031-0
+			2015-11-27 22:47:31,266 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 1 map-reduce job(s) waiting for submission.
+			2015-11-27 22:47:31,298 [JobControl] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:31,607 [JobControl] WARN  org.apache.hadoop.mapreduce.JobResourceUploader - No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+			2015-11-27 22:47:31,646 [JobControl] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat - Total input paths to process : 1
+			2015-11-27 22:47:31,646 [JobControl] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : 1
+			2015-11-27 22:47:31,650 [JobControl] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths (combined) to process : 1
+			2015-11-27 22:47:31,702 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - number of splits:1
+			2015-11-27 22:47:31,802 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - Submitting tokens for job: job_local1091534996_0002
+			2015-11-27 22:47:32,300 [JobControl] INFO  org.apache.hadoop.mapreduce.Job - The url to track the job: http://localhost:8080/
+			2015-11-27 22:47:32,303 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - HadoopJobId: job_local1091534996_0002
+			2015-11-27 22:47:32,305 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Processing aliases grouped_records,records,valid_records
+			2015-11-27 22:47:32,305 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - detailed locations: M: records[1,10],records[-1,-1],valid_records[2,16],grouped_records[3,18] C:  R: 
+			2015-11-27 22:47:32,317 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 0% complete
+			2015-11-27 22:47:32,318 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Running jobs are [job_local1091534996_0002]
+			2015-11-27 22:47:32,321 [Thread-31] INFO  org.apache.hadoop.mapred.LocalJobRunner - OutputCommitter set in config null
+			2015-11-27 22:47:32,353 [Thread-31] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:47:32,354 [Thread-31] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.reduce.markreset.buffer.percent is deprecated. Instead, use mapreduce.reduce.markreset.buffer.percent
+			2015-11-27 22:47:32,358 [Thread-31] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+			2015-11-27 22:47:32,372 [Thread-31] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:47:32,380 [Thread-31] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:47:32,386 [Thread-31] INFO  org.apache.hadoop.mapred.LocalJobRunner - OutputCommitter is org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigOutputCommitter
+			2015-11-27 22:47:32,457 [Thread-31] INFO  org.apache.hadoop.mapred.LocalJobRunner - Waiting for map tasks
+			2015-11-27 22:47:32,460 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - Starting task: attempt_local1091534996_0002_m_000000_0
+			2015-11-27 22:47:32,524 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task -  Using ResourceCalculatorProcessTree : [ ]
+			2015-11-27 22:47:32,532 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Processing split: Number of splits :1
+			Total Length = 50
+			Input split[0]:
+			   Length = 50
+			   ClassName: org.apache.hadoop.mapreduce.lib.input.FileSplit
+			   Locations:
+			
+			-----------------------
+			
+			2015-11-27 22:47:32,588 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigRecordReader - Current split being processed file:/opt/test1/testpig1.txt:0+50
+			2015-11-27 22:47:34,095 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - (EQUATOR) 0 kvi 26214396(104857584)
+			2015-11-27 22:47:34,096 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - mapreduce.task.io.sort.mb: 100
+			2015-11-27 22:47:34,096 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - soft limit at 83886080
+			2015-11-27 22:47:34,098 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - bufstart = 0; bufvoid = 104857600
+			2015-11-27 22:47:34,099 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - kvstart = 26214396; length = 6553600
+			2015-11-27 22:47:34,118 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+			2015-11-27 22:47:34,146 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.data.SchemaTupleBackend - Key [pig.schematuple] was not set... will not generate code.
+			2015-11-27 22:47:34,191 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigGenericMapReduce$Map - Aliases being processed per job phase (AliasName[line,offset]): M: records[1,10],records[-1,-1],valid_records[2,16],grouped_records[3,18] C:  R: 
+			2015-11-27 22:47:34,203 [LocalJobRunner Map Task Executor #0] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigHadoopLogger - org.apache.pig.backend.hadoop.executionengine.physicalLayer.expressionOperators.POProject(ACCESSING_NON_EXISTENT_FIELD): Attempt to access field which was not found in the input
+			2015-11-27 22:47:34,208 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - 
+			2015-11-27 22:47:34,209 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Starting flush of map output
+			2015-11-27 22:47:34,210 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Spilling map output
+			2015-11-27 22:47:34,211 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - bufstart = 0; bufend = 60; bufvoid = 104857600
+			2015-11-27 22:47:34,212 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - kvstart = 26214396(104857584); kvend = 26214380(104857520); length = 17/6553600
+			2015-11-27 22:47:34,270 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Finished spill 0
+			2015-11-27 22:47:34,301 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task:attempt_local1091534996_0002_m_000000_0 is done. And is in the process of committing
+			2015-11-27 22:47:34,318 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - map
+			2015-11-27 22:47:34,323 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task 'attempt_local1091534996_0002_m_000000_0' done.
+			2015-11-27 22:47:34,331 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local1091534996_0002_m_000000_0
+			2015-11-27 22:47:34,333 [Thread-31] INFO  org.apache.hadoop.mapred.LocalJobRunner - map task executor complete.
+			2015-11-27 22:47:34,349 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 50% complete
+			2015-11-27 22:47:34,350 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Running jobs are [job_local1091534996_0002]
+			2015-11-27 22:47:34,360 [Thread-31] INFO  org.apache.hadoop.mapred.LocalJobRunner - Waiting for reduce tasks
+			2015-11-27 22:47:34,362 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - Starting task: attempt_local1091534996_0002_r_000000_0
+			2015-11-27 22:47:34,487 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Task -  Using ResourceCalculatorProcessTree : [ ]
+			2015-11-27 22:47:34,512 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.ReduceTask - Using ShuffleConsumerPlugin: org.apache.hadoop.mapreduce.task.reduce.Shuffle@418cee
+			2015-11-27 22:47:34,621 [pool-5-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - MergerManager: memoryLimit=709551680, maxSingleShuffleLimit=177387920, mergeThreshold=468304128, ioSortFactor=10, memToMemMergeOutputsThreshold=10
+			2015-11-27 22:47:34,655 [EventFetcher for fetching Map Completion Events] INFO  org.apache.hadoop.mapreduce.task.reduce.EventFetcher - attempt_local1091534996_0002_r_000000_0 Thread started: EventFetcher for fetching Map Completion Events
+			2015-11-27 22:47:34,892 [localfetcher#1] INFO  org.apache.hadoop.mapreduce.task.reduce.LocalFetcher - localfetcher#1 about to shuffle output of map attempt_local1091534996_0002_m_000000_0 decomp: 72 len: 76 to MEMORY
+			2015-11-27 22:47:34,912 [localfetcher#1] INFO  org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput - Read 72 bytes from map-output for attempt_local1091534996_0002_m_000000_0
+			2015-11-27 22:47:34,921 [localfetcher#1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - closeInMemoryFile -> map-output of size: 72, inMemoryMapOutputs.size() -> 1, commitMemory -> 0, usedMemory ->72
+			2015-11-27 22:47:34,936 [EventFetcher for fetching Map Completion Events] INFO  org.apache.hadoop.mapreduce.task.reduce.EventFetcher - EventFetcher is interrupted.. Returning
+			2015-11-27 22:47:34,942 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+			2015-11-27 22:47:34,945 [pool-5-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - finalMerge called with 1 in-memory map-outputs and 0 on-disk map-outputs
+			2015-11-27 22:47:34,992 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Merger - Merging 1 sorted segments
+			2015-11-27 22:47:34,995 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Merger - Down to the last merge-pass, with 1 segments left of total size: 63 bytes
+			2015-11-27 22:47:35,012 [pool-5-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merged 1 segments, 72 bytes to disk to satisfy reduce memory limit
+			2015-11-27 22:47:35,014 [pool-5-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merging 1 files, 76 bytes from disk
+			2015-11-27 22:47:35,018 [pool-5-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merging 0 segments, 0 bytes from memory into reduce
+			2015-11-27 22:47:35,018 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Merger - Merging 1 sorted segments
+			2015-11-27 22:47:35,040 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Merger - Down to the last merge-pass, with 1 segments left of total size: 63 bytes
+			2015-11-27 22:47:35,046 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+			2015-11-27 22:47:35,104 [pool-5-thread-1] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+			2015-11-27 22:47:35,145 [pool-5-thread-1] WARN  org.apache.pig.data.SchemaTupleBackend - SchemaTupleBackend has already been initialized
+			2015-11-27 22:47:35,188 [pool-5-thread-1] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapReduce$Reduce - Aliases being processed per job phase (AliasName[line,offset]): M: records[1,10],records[-1,-1],valid_records[2,16],grouped_records[3,18] C:  R: 
+			2015-11-27 22:47:35,258 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Task - Task:attempt_local1091534996_0002_r_000000_0 is done. And is in the process of committing
+			2015-11-27 22:47:35,282 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+			2015-11-27 22:47:35,283 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Task - Task attempt_local1091534996_0002_r_000000_0 is allowed to commit now
+			2015-11-27 22:47:35,306 [pool-5-thread-1] INFO  org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - Saved output of task 'attempt_local1091534996_0002_r_000000_0' to file:/tmp/temp-447264802/tmp-231755506/_temporary/0/task_local1091534996_0002_r_000000
+			2015-11-27 22:47:35,313 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - reduce > reduce
+			2015-11-27 22:47:35,314 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.Task - Task 'attempt_local1091534996_0002_r_000000_0' done.
+			2015-11-27 22:47:35,317 [pool-5-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local1091534996_0002_r_000000_0
+			2015-11-27 22:47:35,318 [Thread-31] INFO  org.apache.hadoop.mapred.LocalJobRunner - reduce task executor complete.
+			2015-11-27 22:47:35,356 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Running jobs are [job_local1091534996_0002]
+			2015-11-27 22:47:35,584 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:35,586 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:35,587 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+			2015-11-27 22:47:35,587 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+			2015-11-27 22:47:35,592 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:35,674 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete
+			2015-11-27 22:47:35,676 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.SimplePigStats - Script Statistics: 
+			
+			HadoopVersion   PigVersion      UserId  StartedAt       FinishedAt      Features
+			2.6.2   0.15.0  root    2015-11-27 22:47:30     2015-11-27 22:47:35     GROUP_BY,FILTER
+			
+			Success!
+			
+			Job Stats (time in seconds):
+			JobId   Maps    Reduces MaxMapTime      MinMapTime      AvgMapTime      MedianMapTime   MaxReduceTime   MinReduceTime   AvgReduceTimeMedianReducetime Alias   Feature Outputs
+			job_local1091534996_0002        1       1       n/a     n/a     n/a     n/a     n/a     n/a     n/a     n/a     grouped_records,records,valid_records GROUP_BY        file:/tmp/temp-447264802/tmp-231755506,
+			
+			Input(s):
+			Successfully read 7 records from: "/opt/test1/testpig1.txt"
+			
+			Output(s):
+			Successfully stored 3 records in: "file:/tmp/temp-447264802/tmp-231755506"
+			
+			Counters:
+			Total records written : 3
+			Total bytes written : 0
+			Spillable Memory Manager spill count : 0
+			Total bags proactively spilled: 0
+			Total records proactively spilled: 0
+			
+			Job DAG:
+			job_local1091534996_0002
+			
+			
+			2015-11-27 22:47:35,680 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:35,684 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:35,687 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:47:35,736 [main] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Encountered Warning ACCESSING_NON_EXISTENT_FIELD 1 time(s).
+			2015-11-27 22:47:35,737 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Success!
+			2015-11-27 22:47:35,744 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:47:35,760 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:47:35,766 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:47:35,771 [main] WARN  org.apache.pig.data.SchemaTupleBackend - SchemaTupleBackend has already been initialized
+			2015-11-27 22:47:35,882 [main] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat - Total input paths to process : 1
+			2015-11-27 22:47:35,883 [main] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : 1
+			(1990,{(1990,23),(1990,18),(1990,21)})
+			(1991,{(1991,21)})
+			(1992,{(1992,30)})
+			grunt> describe grouped_records;
+			grouped_records: {group: chararray,valid_records: {(year: chararray,temperature: int)}}
+			grunt> max_temperature = foreach grouped_recordsgenerate group,MAX(valid_records.temperature);
+			2015-11-27 22:47:57,900 [main] ERROR org.apache.pig.tools.grunt.Grunt - ERROR 1200: <line 4, column 50>  Syntax error, unexpected symbol at or near 'group'
+			Details at logfile: /root/pig_1448635376995.log
+			grunt> max_temperature = foreach grouped_records generate group,MAX(valid_records.temperature);
+			grunt> dump max_temperature;
+			2015-11-27 22:49:01,431 [main] INFO  org.apache.pig.tools.pigstats.ScriptState - Pig features used in the script: GROUP_BY,FILTER
+			2015-11-27 22:49:01,568 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:49:01,572 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:49:01,572 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:49:01,575 [main] INFO  org.apache.pig.data.SchemaTupleBackend - Key [pig.schematuple] was not set... will not generate code.
+			2015-11-27 22:49:01,576 [main] INFO  org.apache.pig.newplan.logical.optimizer.LogicalPlanOptimizer - {RULES_ENABLED=[AddForEach, ColumnMapKeyPrune, ConstantCalculator, GroupByConstParallelSetter, LimitOptimizer, LoadTypeCastInserter, MergeFilter, MergeForEach, PartitionFilterOptimizer, PredicatePushdownOptimizer, PushDownForEachFlatten, PushUpFilter, SplitFilter, StreamTypeCastInserter]}
+			2015-11-27 22:49:01,606 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler - File concatenation threshold: 100 optimistic? false
+			2015-11-27 22:49:01,616 [main] INFO  org.apache.pig.backend.hadoop.executionengine.util.CombinerOptimizerUtil - Choosing to move algebraic foreach to combiner
+			2015-11-27 22:49:01,677 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size before optimization: 1
+			2015-11-27 22:49:01,678 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MultiQueryOptimizer - MR plan size after optimization: 1
+			2015-11-27 22:49:01,776 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:49:01,786 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:49:01,801 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:01,813 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.MRScriptState - Pig script settings are added to the job
+			2015-11-27 22:49:01,820 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - mapred.job.reduce.markreset.buffer.percent is not set, set to default 0.3
+			2015-11-27 22:49:01,833 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Reduce phase detected, estimating # of required reducers.
+			2015-11-27 22:49:01,833 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Using reducer estimator: org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.InputSizeReducerEstimator
+			2015-11-27 22:49:01,842 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.InputSizeReducerEstimator - BytesPerReducer=1000000000 maxReducers=999 totalInputFileSize=50
+			2015-11-27 22:49:01,843 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting Parallelism to 1
+			2015-11-27 22:49:01,845 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+			2015-11-27 22:49:01,898 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.JobControlCompiler - Setting up single store job
+			2015-11-27 22:49:01,907 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Key [pig.schematuple] is false, will not generate code.
+			2015-11-27 22:49:01,911 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Starting process to move generated code to distributed cacche
+			2015-11-27 22:49:01,914 [main] INFO  org.apache.pig.data.SchemaTupleFrontend - Distributed cache not supported or needed in local mode. Setting key [pig.schematuple.local.dir] with code temp directory: /tmp/1448635741907-0
+			2015-11-27 22:49:02,059 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 1 map-reduce job(s) waiting for submission.
+			2015-11-27 22:49:02,069 [JobControl] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:02,243 [JobControl] WARN  org.apache.hadoop.mapreduce.JobResourceUploader - No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+			2015-11-27 22:49:02,273 [JobControl] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat - Total input paths to process : 1
+			2015-11-27 22:49:02,274 [JobControl] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : 1
+			2015-11-27 22:49:02,281 [JobControl] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths (combined) to process : 1
+			2015-11-27 22:49:02,343 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - number of splits:1
+			2015-11-27 22:49:02,445 [JobControl] INFO  org.apache.hadoop.mapreduce.JobSubmitter - Submitting tokens for job: job_local1380386285_0003
+			2015-11-27 22:49:03,006 [JobControl] INFO  org.apache.hadoop.mapreduce.Job - The url to track the job: http://localhost:8080/
+			2015-11-27 22:49:03,007 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - HadoopJobId: job_local1380386285_0003
+			2015-11-27 22:49:03,008 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Processing aliases grouped_records,max_temperature,records,valid_records
+			2015-11-27 22:49:03,008 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - detailed locations: M: records[1,10],records[-1,-1],valid_records[2,16],max_temperature[4,18],grouped_records[3,18] C: max_temperature[4,18],grouped_records[3,18] R: max_temperature[4,18]
+			2015-11-27 22:49:03,017 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 0% complete
+			2015-11-27 22:49:03,017 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Running jobs are [job_local1380386285_0003]
+			2015-11-27 22:49:03,020 [Thread-51] INFO  org.apache.hadoop.mapred.LocalJobRunner - OutputCommitter set in config null
+			2015-11-27 22:49:03,102 [Thread-51] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:49:03,105 [Thread-51] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.reduce.markreset.buffer.percent is deprecated. Instead, use mapreduce.reduce.markreset.buffer.percent
+			2015-11-27 22:49:03,106 [Thread-51] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.reduce.tasks is deprecated. Instead, use mapreduce.job.reduces
+			2015-11-27 22:49:03,113 [Thread-51] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:49:03,116 [Thread-51] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:49:03,125 [Thread-51] INFO  org.apache.hadoop.mapred.LocalJobRunner - OutputCommitter is org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigOutputCommitter
+			2015-11-27 22:49:03,153 [Thread-51] INFO  org.apache.hadoop.mapred.LocalJobRunner - Waiting for map tasks
+			2015-11-27 22:49:03,167 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - Starting task: attempt_local1380386285_0003_m_000000_0
+			2015-11-27 22:49:03,225 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task -  Using ResourceCalculatorProcessTree : [ ]
+			2015-11-27 22:49:03,233 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Processing split: Number of splits :1
+			Total Length = 50
+			Input split[0]:
+			   Length = 50
+			   ClassName: org.apache.hadoop.mapreduce.lib.input.FileSplit
+			   Locations:
+			
+			-----------------------
+			
+			2015-11-27 22:49:03,261 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigRecordReader - Current split being processed file:/opt/test1/testpig1.txt:0+50
+			2015-11-27 22:49:03,670 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - (EQUATOR) 0 kvi 26214396(104857584)
+			2015-11-27 22:49:03,672 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - mapreduce.task.io.sort.mb: 100
+			2015-11-27 22:49:03,677 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - soft limit at 83886080
+			2015-11-27 22:49:03,678 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - bufstart = 0; bufvoid = 104857600
+			2015-11-27 22:49:03,679 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - kvstart = 26214396; length = 6553600
+			2015-11-27 22:49:03,693 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+			2015-11-27 22:49:03,723 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.data.SchemaTupleBackend - Key [pig.schematuple] was not set... will not generate code.
+			2015-11-27 22:49:03,764 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigGenericMapReduce$Map - Aliases being processed per job phase (AliasName[line,offset]): M: records[1,10],records[-1,-1],valid_records[2,16],max_temperature[4,18],grouped_records[3,18] C: max_temperature[4,18],grouped_records[3,18] R: max_temperature[4,18]
+			2015-11-27 22:49:03,798 [LocalJobRunner Map Task Executor #0] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigHadoopLogger - org.apache.pig.backend.hadoop.executionengine.physicalLayer.expressionOperators.POProject(ACCESSING_NON_EXISTENT_FIELD): Attempt to access field which was not found in the input
+			2015-11-27 22:49:03,802 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - 
+			2015-11-27 22:49:03,804 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Starting flush of map output
+			2015-11-27 22:49:03,807 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Spilling map output
+			2015-11-27 22:49:03,809 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - bufstart = 0; bufend = 65; bufvoid = 104857600
+			2015-11-27 22:49:03,812 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - kvstart = 26214396(104857584); kvend = 26214380(104857520); length = 17/6553600
+			2015-11-27 22:49:03,888 [LocalJobRunner Map Task Executor #0] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigCombiner$Combine - Aliases being processed per job phase (AliasName[line,offset]): M: records[1,10],records[-1,-1],valid_records[2,16],max_temperature[4,18],grouped_records[3,18] C: max_temperature[4,18],grouped_records[3,18] R: max_temperature[4,18]
+			2015-11-27 22:49:03,897 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.MapTask - Finished spill 0
+			2015-11-27 22:49:03,909 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task:attempt_local1380386285_0003_m_000000_0 is done. And is in the process of committing
+			2015-11-27 22:49:03,916 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - map
+			2015-11-27 22:49:03,917 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.Task - Task 'attempt_local1380386285_0003_m_000000_0' done.
+			2015-11-27 22:49:03,919 [LocalJobRunner Map Task Executor #0] INFO  org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local1380386285_0003_m_000000_0
+			2015-11-27 22:49:03,921 [Thread-51] INFO  org.apache.hadoop.mapred.LocalJobRunner - map task executor complete.
+			2015-11-27 22:49:03,922 [Thread-51] INFO  org.apache.hadoop.mapred.LocalJobRunner - Waiting for reduce tasks
+			2015-11-27 22:49:03,925 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - Starting task: attempt_local1380386285_0003_r_000000_0
+			2015-11-27 22:49:04,018 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Task -  Using ResourceCalculatorProcessTree : [ ]
+			2015-11-27 22:49:04,019 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.ReduceTask - Using ShuffleConsumerPlugin: org.apache.hadoop.mapreduce.task.reduce.Shuffle@fe1db2
+			2015-11-27 22:49:04,022 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 50% complete
+			2015-11-27 22:49:04,023 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Running jobs are [job_local1380386285_0003]
+			2015-11-27 22:49:04,024 [pool-8-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - MergerManager: memoryLimit=709551680, maxSingleShuffleLimit=177387920, mergeThreshold=468304128, ioSortFactor=10, memToMemMergeOutputsThreshold=10
+			2015-11-27 22:49:04,027 [EventFetcher for fetching Map Completion Events] INFO  org.apache.hadoop.mapreduce.task.reduce.EventFetcher - attempt_local1380386285_0003_r_000000_0 Thread started: EventFetcher for fetching Map Completion Events
+			2015-11-27 22:49:04,050 [localfetcher#2] INFO  org.apache.hadoop.mapreduce.task.reduce.LocalFetcher - localfetcher#2 about to shuffle output of map attempt_local1380386285_0003_m_000000_0 decomp: 47 len: 51 to MEMORY
+			2015-11-27 22:49:04,057 [localfetcher#2] INFO  org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput - Read 47 bytes from map-output for attempt_local1380386285_0003_m_000000_0
+			2015-11-27 22:49:04,058 [localfetcher#2] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - closeInMemoryFile -> map-output of size: 47, inMemoryMapOutputs.size() -> 1, commitMemory -> 0, usedMemory ->47
+			2015-11-27 22:49:04,062 [EventFetcher for fetching Map Completion Events] INFO  org.apache.hadoop.mapreduce.task.reduce.EventFetcher - EventFetcher is interrupted.. Returning
+			2015-11-27 22:49:04,064 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+			2015-11-27 22:49:04,064 [pool-8-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - finalMerge called with 1 in-memory map-outputs and 0 on-disk map-outputs
+			2015-11-27 22:49:04,073 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Merger - Merging 1 sorted segments
+			2015-11-27 22:49:04,074 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Merger - Down to the last merge-pass, with 1 segments left of total size: 38 bytes
+			2015-11-27 22:49:04,076 [pool-8-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merged 1 segments, 47 bytes to disk to satisfy reduce memory limit
+			2015-11-27 22:49:04,080 [pool-8-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merging 1 files, 51 bytes from disk
+			2015-11-27 22:49:04,085 [pool-8-thread-1] INFO  org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merging 0 segments, 0 bytes from memory into reduce
+			2015-11-27 22:49:04,086 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Merger - Merging 1 sorted segments
+			2015-11-27 22:49:04,088 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Merger - Down to the last merge-pass, with 1 segments left of total size: 38 bytes
+			2015-11-27 22:49:04,091 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+			2015-11-27 22:49:04,202 [pool-8-thread-1] WARN  org.apache.pig.data.SchemaTupleBackend - SchemaTupleBackend has already been initialized
+			2015-11-27 22:49:04,233 [pool-8-thread-1] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapReduce$Reduce - Aliases being processed per job phase (AliasName[line,offset]): M: records[1,10],records[-1,-1],valid_records[2,16],max_temperature[4,18],grouped_records[3,18] C: max_temperature[4,18],grouped_records[3,18] R: max_temperature[4,18]
+			2015-11-27 22:49:04,239 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Task - Task:attempt_local1380386285_0003_r_000000_0 is done. And is in the process of committing
+			2015-11-27 22:49:04,253 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+			2015-11-27 22:49:04,254 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Task - Task attempt_local1380386285_0003_r_000000_0 is allowed to commit now
+			2015-11-27 22:49:04,269 [pool-8-thread-1] INFO  org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - Saved output of task 'attempt_local1380386285_0003_r_000000_0' to file:/tmp/temp-447264802/tmp792298411/_temporary/0/task_local1380386285_0003_r_000000
+			2015-11-27 22:49:04,278 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - reduce > reduce
+			2015-11-27 22:49:04,279 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.Task - Task 'attempt_local1380386285_0003_r_000000_0' done.
+			2015-11-27 22:49:04,280 [pool-8-thread-1] INFO  org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local1380386285_0003_r_000000_0
+			2015-11-27 22:49:04,280 [Thread-51] INFO  org.apache.hadoop.mapred.LocalJobRunner - reduce task executor complete.
+			2015-11-27 22:49:04,426 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:04,441 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:04,443 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+			2015-11-27 22:49:04,456 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:04,623 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete
+			2015-11-27 22:49:04,633 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.SimplePigStats - Script Statistics: 
+			
+			HadoopVersion   PigVersion      UserId  StartedAt       FinishedAt      Features
+			2.6.2   0.15.0  root    2015-11-27 22:49:01     2015-11-27 22:49:04     GROUP_BY,FILTER
+			
+			Success!
+			
+			Job Stats (time in seconds):
+			JobId   Maps    Reduces MaxMapTime      MinMapTime      AvgMapTime      MedianMapTime   MaxReduceTime   MinReduceTime   AvgReduceTimeMedianReducetime Alias   Feature Outputs
+			job_local1380386285_0003        1       1       n/a     n/a     n/a     n/a     n/a     n/a     n/a     n/a     grouped_records,max_temperature,records,valid_records GROUP_BY,COMBINER       file:/tmp/temp-447264802/tmp792298411,
+			
+			Input(s):
+			Successfully read 7 records from: "/opt/test1/testpig1.txt"
+			
+			Output(s):
+			Successfully stored 3 records in: "file:/tmp/temp-447264802/tmp792298411"
+			
+			Counters:
+			Total records written : 3
+			Total bytes written : 0
+			Spillable Memory Manager spill count : 0
+			Total bags proactively spilled: 0
+			Total records proactively spilled: 0
+			
+			Job DAG:
+			job_local1380386285_0003
+			
+			
+			2015-11-27 22:49:04,645 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:04,654 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:04,657 [main] INFO  org.apache.hadoop.metrics.jvm.JvmMetrics - Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+			2015-11-27 22:49:04,693 [main] WARN  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Encountered Warning ACCESSING_NON_EXISTENT_FIELD 1 time(s).
+			2015-11-27 22:49:04,693 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Success!
+			2015-11-27 22:49:04,697 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - io.bytes.per.checksum is deprecated. Instead, use dfs.bytes-per-checksum
+			2015-11-27 22:49:04,707 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - fs.default.name is deprecated. Instead, use fs.defaultFS
+			2015-11-27 22:49:04,708 [main] INFO  org.apache.hadoop.conf.Configuration.deprecation - mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+			2015-11-27 22:49:04,712 [main] WARN  org.apache.pig.data.SchemaTupleBackend - SchemaTupleBackend has already been initialized
+			2015-11-27 22:49:04,832 [main] INFO  org.apache.hadoop.mapreduce.lib.input.FileInputFormat - Total input paths to process : 1
+			2015-11-27 22:49:04,832 [main] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : 1
+			(1990,23)
+			(1991,21)
+			(1992,30)
+			grunt> 
+
+Mahout的安装与使用
+	tar -xzvf apache-mahout-distribution-0.11.1.tar.gz
+	mv apache-mahout-distribution-0.11.1 /opt/
+	mv apache-mahout-distribution-0.11.1 mahout-0.11.1
+	测试数据：synthetic_control.data
+
+
+hadoop视频教程 下载 百度云盘===================》
+
+hadoop基础入门到进阶 
+http://pan.baidu.com/s/1o69W4Kq 
+Hadoop源码解析与开发实战 
+云盘地址：http://pan.baidu.com/s/1eQxtYim 
+HBase源码解析与开发实战 
+http://pan.baidu.com/s/1i3B0USP 
+Hadoop进阶 
+http://pan.baidu.com/s/1bntwroj 
+Hive进阶 
+http://pan.baidu.com/s/1bnwejef 
+
+第1章 分布式文件系统 
+第1节hdfs1分布式文件系统01 
+第2节hdfs1分布式文件系统02 
+第3节hdfs1分布式文件系统03 
+第4节hdfs1分布式文件系统04 
+第5节hdfs1分布式文件系统05 
+第6节hdfs1分布式文件系统06 
+第7节hdfs1分布式文件系统07 
+第8节hdfs1分布式文件系统08 
+
+第2章 mr分布式计算框架 
+第1节mr分布式计算框架_理论1 
+第2节mr分布式计算框架_理论2 
+第3节mr分布式计算框架_理论3 
+第4节mr分布式计算框架_install 
+第5节mr分布式计算框架_wc01 
+第6节mr分布式计算框架_wc02 
+第7节mr_qq推荐好友01 
+第8节mr_qq推荐好友02 
+第9节mr_精准广告推送01 
+第10节mr_精准广告推送02 
+
+第3章 hadoop2.x 
+第1节hadoop2.x_介绍01 
+第2节hadoop2.x_介绍02 
+第3节ha介绍01 
+第4节ha介绍02 
+第5节hadoop2.5.2的安装部署01 
+第6节hadoop2.5.2的安装部署02 
+第7节hadoop2.5.2的安装部署03 
+第8节温度排序，分区，分组，自定义封装类01 
+第9节温度排序，分区，分组，自定义封装类02 
+第10节温度排序，分区，分组，自定义封装类03 
+第11节广告推送用户轨迹01 
+第12节广告推送用户轨迹02 
+第13节广告推送用户轨迹03 
+
+第4章 hive 
+第1节介绍和安装01 
+第2节介绍和安装02 
+第3节ddl数据定义语言01 
+第4节ddl数据定义语言02 
+第5节dml数据操作语言_select01 
+第6节dml数据操作语言_select02 
+第7节server2服务器01 
+第8节server2服务器02 
+
+第5章 轨迹分析 
+第1节轨迹分析01 
+第2节轨迹分析02 
+第3节理论 
+
+第6章 hbase 
+第1节介绍01 
+第2节介绍02 
+第3节介绍03 
+第4节介绍04 
+第5节介绍05 
+第6节完全分布式01 
+第7节完全分布式02 
+第8节代码01 
+第9节代码02 
+第10节微博01 
+第11节微博02 
+第12节优化01 
+第13节优化02
+
+《===================END
+
+Windows下单机伪分布式HDFS
+
+解决bin下winutils.exe的问题
+https://codeload.github.com/srccodes/hadoop-common-2.2.0-bin/zip/master
+
+
+windows7+eclipse+hadoop2.5.2环境配置 
+http://www.cnblogs.com/huligong1234/p/4137133.html
+
+
+Hadoop2.2.0伪分布式环境搭建（附：64位下编译Hadoop-2.2.0过程）
+http://blog.csdn.net/djy572568633/article/details/37907913
+
+
+set HADOOP_HOME=D:\pf\hadoop-2.6.2
+set PATH=%HADOOP_HOME%\bin;%HADOOP_HOME%\sbin;%PATH%
+
+set HADOOP_HOME=D:\pf\hadoop-2.7.3
+set PATH=%HADOOP_HOME%\bin;%HADOOP_HOME%\sbin;%PATH%
+set JAVA_HOME=D:\pf\jre7
+set PATH=%JAVA_HOME%\bin;%PATH%
+
+cd %HADOOP_HOME%
+.\bin\hdfs namenode -format
+
+.\sbin\start-all.cmd
+
+hdfs dfs -ls hdfs://localhost:9000/
+hdfs dfs -ls /
+hdfs dfs -ls /steve
+hdfs dfs -mkdir -p /steve/output
+hdfs dfs -copyFromLocal a1.txt /steve
+hdfs dfs -copyFromLocal D:\pf\hadoop-2.7.3\fhfile.txt /steve
+
+hadoop dfs -ls /steve
+
+bin/hadoop jar hadoop-mapred-examples-0.21.0.jar wordcount /tmp/wordcount/word.txt /tmp/wordcount/out
+
+
+在window连接虚拟机Hadoop集群时遇到问题：
+1.1 缺少winutils.exe
+Could not locate executable null \bin\winutils.exe in the hadoop binaries
+1.2 缺少hadoop.dll
+Unable to load native-hadoop library for your platform… using builtin-Java classes where applicable
+
+问题3
+Java.io.IOException: Could not locateexecutable null/bin/winutils.exe in the Hadoop binaries.
+    缺少winutils.exe 下载一个添加进去就行
+  下载地址 http://download.csdn.NET/detail/u010911997/8478049
+
+问题4
+Exceptionin thread "main" java.lang.UnsatisfiedLinkError:org.apache.hadoop.util.NativeCrc32.nativeComputeChunkedSumsByteArray(II[BI[BIILjava/lang/String;JZ)V
+    这是由于hadoop.dll 版本问题，2.4之前的和自后的需要的不一样
+    需要选择正确的版本并且在 Hadoop/bin和 C：\windows\system32 上将其替换
+
+问题5
+Exception in thread "main"java.lang.UnsatisfiedLinkError:org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z
+    atorg.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Native Method)
+    at org.apache.hadoop.io.nativeio.NativeIO$Windows.access(NativeIO.java:557)
+目前未找到解决方法，只能修改源代码
+将源代码放入 工程的src目录下并创建同样的包名，然后修改源代码
+源代码 未修改前
+  publicstaticbooleanaccess(String path, AccessRight desiredAccess)
+        throws IOException {
+       return access0(path,desiredAccess.accessRight());
+   }
+源代码 修改后
+public staticbooleanaccess(String path, AccessRight desiredAccess)
+        throws IOException {
+        return ture;
+//       return access0(path,desiredAccess.accessRight());
+   }
+修改后编译成功，但是看不到软件运行时候的信息反馈
+
+
+17/04/07 15:45:18 INFO event.AsyncDispatcher: Registering class org.apache.hadoo
+p.yarn.server.nodemanager.ContainerManagerEventType for class org.apache.hadoop.
+yarn.server.nodemanager.containermanager.ContainerManagerImpl
+17/04/07 15:45:18 INFO event.AsyncDispatcher: Registering class org.apache.hadoo
+p.yarn.server.nodemanager.NodeManagerEventType for class org.apache.hadoop.yarn.
+server.nodemanager.NodeManager
+17/04/07 15:45:18 INFO impl.MetricsConfig: loaded properties from hadoop-metrics
+2.properties
+17/04/07 15:45:18 INFO impl.MetricsSystemImpl: Scheduled snapshot period at 10 s
+econd(s).
+17/04/07 15:45:18 INFO impl.MetricsSystemImpl: NodeManager metrics system starte
+d
+17/04/07 15:45:18 FATAL nodemanager.NodeManager: Error starting NodeManager
+java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.a
+ccess0(Ljava/lang/String;I)Z
+        at org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Native Method)
+
+        at org.apache.hadoop.io.nativeio.NativeIO$Windows.access(NativeIO.java:6
+09)
+        at org.apache.hadoop.fs.FileUtil.canRead(FileUtil.java:977)
+        at org.apache.hadoop.util.DiskChecker.checkAccessByFileMethods(DiskCheck
+er.java:187)
+        at org.apache.hadoop.util.DiskChecker.checkDirAccess(DiskChecker.java:17
+4)
+        at org.apache.hadoop.util.DiskChecker.checkDir(DiskChecker.java:108)
+        at org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection.testDir
+s(DirectoryCollection.java:290)
+        at org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection.checkDi
+rs(DirectoryCollection.java:229)
+        at org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService.che
+ckDirs(LocalDirsHandlerService.java:381)
+        at org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService.ser
+viceInit(LocalDirsHandlerService.java:162)
+        at org.apache.hadoop.service.AbstractService.init(AbstractService.java:1
+63)
+        at org.apache.hadoop.service.CompositeService.serviceInit(CompositeServi
+ce.java:107)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeHealthCheckerService.se
+rviceInit(NodeHealthCheckerService.java:48)
+        at org.apache.hadoop.service.AbstractService.init(AbstractService.java:1
+63)
+        at org.apache.hadoop.service.CompositeService.serviceInit(CompositeServi
+ce.java:107)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeManager.serviceInit(Nod
+eManager.java:261)
+        at org.apache.hadoop.service.AbstractService.init(AbstractService.java:1
+63)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeManager.initAndStartNod
+eManager(NodeManager.java:495)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeManager.main(NodeManage
+r.java:543)
+17/04/07 15:45:18 INFO impl.MetricsSystemImpl: Stopping NodeManager metrics syst
+em...
+17/04/07 15:45:18 INFO impl.MetricsSystemImpl: NodeManager metrics system stoppe
+d.
+17/04/07 15:45:18 INFO impl.MetricsSystemImpl: NodeManager metrics system shutdo
+wn complete.
+17/04/07 15:45:18 INFO nodemanager.NodeManager: SHUTDOWN_MSG:
+/************************************************************
+SHUTDOWN_MSG: Shutting down NodeManager at cfh-PC/192.168.1.104
+************************************************************/
+
+
+
+17/04/07 15:50:08 INFO localizer.ResourceLocalizationService: per directory file
+ limit = 8192
+17/04/07 15:50:21 INFO localizer.ResourceLocalizationService: usercache path : f
+ile:/tmp/hadoop-Administrator/nm-local-dir/usercache_DEL_1491551408561
+17/04/07 15:50:21 FATAL nodemanager.NodeManager: Error starting NodeManager
+java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.c
+reateDirectoryWithMode0(Ljava/lang/String;I)V
+        at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMod
+e0(Native Method)
+        at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMod
+e(NativeIO.java:524)
+        at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFile
+System.java:478)
+        at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(
+RawLocalFileSystem.java:531)
+        at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.jav
+a:509)
+        at org.apache.hadoop.fs.FileSystem.primitiveMkdir(FileSystem.java:1066)
+        at org.apache.hadoop.fs.DelegateToFileSystem.mkdir(DelegateToFileSystem.
+java:176)
+        at org.apache.hadoop.fs.FilterFs.mkdir(FilterFs.java:197)
+        at org.apache.hadoop.fs.FileContext$4.next(FileContext.java:730)
+        at org.apache.hadoop.fs.FileContext$4.next(FileContext.java:726)
+        at org.apache.hadoop.fs.FSLinkResolver.resolve(FSLinkResolver.java:90)
+        at org.apache.hadoop.fs.FileContext.mkdir(FileContext.java:726)
+        at org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.
+ResourceLocalizationService.initializeLocalDir(ResourceLocalizationService.java:
+1259)
+        at org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.
+ResourceLocalizationService.initializeLocalDirs(ResourceLocalizationService.java
+:1237)
+        at org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.
+ResourceLocalizationService.serviceInit(ResourceLocalizationService.java:236)
+        at org.apache.hadoop.service.AbstractService.init(AbstractService.java:1
+63)
+        at org.apache.hadoop.service.CompositeService.serviceInit(CompositeServi
+ce.java:107)
+        at org.apache.hadoop.yarn.server.nodemanager.containermanager.ContainerM
+anagerImpl.serviceInit(ContainerManagerImpl.java:245)
+        at org.apache.hadoop.service.AbstractService.init(AbstractService.java:1
+63)
+        at org.apache.hadoop.service.CompositeService.serviceInit(CompositeServi
+ce.java:107)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeManager.serviceInit(Nod
+eManager.java:261)
+        at org.apache.hadoop.service.AbstractService.init(AbstractService.java:1
+63)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeManager.initAndStartNod
+eManager(NodeManager.java:495)
+        at org.apache.hadoop.yarn.server.nodemanager.NodeManager.main(NodeManage
+r.java:543)
+17/04/07 15:50:21 INFO impl.MetricsSystemImpl: Stopping NodeManager metrics syst
+em...
+17/04/07 15:50:21 INFO impl.MetricsSystemImpl: NodeManager metrics system stoppe
+d.
+17/04/07 15:50:21 INFO impl.MetricsSystemImpl: NodeManager metrics system shutdo
+wn complete.
+17/04/07 15:50:21 INFO nodemanager.NodeManager: SHUTDOWN_MSG:
+/************************************************************
+SHUTDOWN_MSG: Shutting down NodeManager at cfh-PC/192.168.1.104
+************************************************************/
+
+
+
+This time, I use JDK1.7.0_80 64-bit to operate hadoop-2.6.2, startup normally, but transfering file to hdfs failed.
+But when I change the JDK from 1.7.0_80 64-bit to 1.7.0_80 32bit, all the consoles are failed.
+Then I change JDK from 1.7.0_80 64-bit to 1.6.0_45 64-bit, startup normally
+
+So we can see we should use JDK 64bit, not 32bit. I used 
+	JDK1.6.0_45 64-bit and Hadoop2.6.2, they can startup normally.
+	JDK1.6.0_45 64-bit and Hadoop2.7.3, there will be an error:
+		Exception in thread "main" java.lang.UnsupportedClassVersionError: org/apache/hadoop/util/PlatformName : Unsupported major.minor version 51.0
+	JDK1.7.0_80 64-bit and Hadoop2.7.3, they can format normally, but startup failed.
+		17/04/07 17:54:44 INFO localizer.ResourceLocalizationService: usercache path : file:/tmp/hadoop-Administrator/nm-local-dir/usercache_DEL_1491558879378
+		17/04/07 17:54:44 FATAL nodemanager.NodeManager: Error starting NodeManager java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Ljava/lang/String;I)V
+		So I redownload hadoop dll and winutils.exe for version 2.7.3, then startup success.
+		
+For the below problem, I redownload new hadoop.dll, then this problem is fixed. So the root cause is hadoop.dll.
+
+C:\Users\Administrator>set HADOOP_HOME=D:\pf\hadoop-2.6.2
+
+C:\Users\Administrator>set PATH=%HADOOP_HOME%\bin;%HADOOP_HOME%\sbin;%PATH%
+
+C:\Users\Administrator>hdfs dfs -ls /
+
+C:\Users\Administrator>hdfs dfs -mkdir -p /steve/output
+
+C:\Users\Administrator>hdfs dfs -ls /
+Found 1 items
+drwxr-xr-x   - Administrator supergroup          0 2017-04-07 16:14 /steve
+
+C:\Users\Administrator>hdfs dfs -ls /steve
+Found 1 items
+drwxr-xr-x   - Administrator supergroup          0 2017-04-07 16:14 /steve/outpu
+t
+
+C:\Users\Administrator>hdfs dfs -copyFromLocal D:\pf\hadoop-2.7.3\fhfile.txt /steve
+Exception in thread "main" java.lang.UnsatisfiedLinkError: org.apache.hadoop.uti
+l.NativeCrc32.nativeComputeChunkedSumsByteArray(II[BI[BIILjava/lang/String;JZ)V
+        at org.apache.hadoop.util.NativeCrc32.nativeComputeChunkedSumsByteArray(
+Native Method)
+        at org.apache.hadoop.util.NativeCrc32.calculateChunkedSumsByteArray(Nati
+veCrc32.java:86)
+        at org.apache.hadoop.util.DataChecksum.calculateChunkedSums(DataChecksum
+.java:430)
+        at org.apache.hadoop.fs.FSOutputSummer.writeChecksumChunks(FSOutputSumme
+r.java:202)
+        at org.apache.hadoop.fs.FSOutputSummer.flushBuffer(FSOutputSummer.java:1
+63)
+        at org.apache.hadoop.fs.FSOutputSummer.flushBuffer(FSOutputSummer.java:1
+44)
+        at org.apache.hadoop.hdfs.DFSOutputStream.close(DFSOutputStream.java:221
+7)
+        at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.close(FSDataOut
+putStream.java:72)
+        at org.apache.hadoop.fs.FSDataOutputStream.close(FSDataOutputStream.java
+:106)
+        at org.apache.hadoop.io.IOUtils.copyBytes(IOUtils.java:54)
+        at org.apache.hadoop.io.IOUtils.copyBytes(IOUtils.java:112)
+        at org.apache.hadoop.fs.shell.CommandWithDestination$TargetFileSystem.wr
+iteStreamToFile(CommandWithDestination.java:466)
+        at org.apache.hadoop.fs.shell.CommandWithDestination.copyStreamToTarget(
+CommandWithDestination.java:391)
+        at org.apache.hadoop.fs.shell.CommandWithDestination.copyFileToTarget(Co
+mmandWithDestination.java:328)
+        at org.apache.hadoop.fs.shell.CommandWithDestination.processPath(Command
+WithDestination.java:263)
+        at org.apache.hadoop.fs.shell.CommandWithDestination.processPath(Command
+WithDestination.java:248)
+        at org.apache.hadoop.fs.shell.Command.processPaths(Command.java:306)
+        at org.apache.hadoop.fs.shell.Command.processPathArgument(Command.java:2
+78)
+        at org.apache.hadoop.fs.shell.CommandWithDestination.processPathArgument
+(CommandWithDestination.java:243)
+        at org.apache.hadoop.fs.shell.Command.processArgument(Command.java:260)
+        at org.apache.hadoop.fs.shell.Command.processArguments(Command.java:244)
+
+        at org.apache.hadoop.fs.shell.CommandWithDestination.processArguments(Co
+mmandWithDestination.java:220)
+        at org.apache.hadoop.fs.shell.CopyCommands$Put.processArguments(CopyComm
+ands.java:267)
+        at org.apache.hadoop.fs.shell.Command.processRawArguments(Command.java:1
+90)
+        at org.apache.hadoop.fs.shell.Command.run(Command.java:154)
+        at org.apache.hadoop.fs.FsShell.run(FsShell.java:287)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:84)
+        at org.apache.hadoop.fs.FsShell.main(FsShell.java:340)
+
+C:\Users\Administrator>java -version
+java version "1.7.0_80"
+Java(TM) SE Runtime Environment (build 1.7.0_80-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 24.80-b11, mixed mode)
+
+
+C:\Users\Administrator>hdfs dfs -cat /steve/aa.txt
+hello world, this is Steve.
+How are you?
+Both in hadoop 2.6.4 and 2.7.3, I met the same problem
+17/04/07 18:37:38 ERROR datanode.DataNode: 192.168.1.104:50010:DataXceiver error
+ processing READ_BLOCK operation  src: /127.0.0.1:53558 dst: /127.0.0.1:50010
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+
+
+D:\pf\hadoop-2.7.3\share\hadoop\mapreduce>hadoop fs -ls /steve
+系统找不到指定的批处理标签 - make_command_arguments
+
+
+
+
+
+
+
+
+
+
+When HDFS is stopped, then the client cannot access that:
+
+C:\Users\Administrator>hdfs dfs -ls hdfs://fhlab1:9000/
+ls: Call From cfh-PC/192.168.1.101 to fhlab1:9000 failed on connection exception: java.net.ConnectEx
+n; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused
+
+正常start Hadoop时的输出信息：
+
+[root@fhlab1 ~]# start-all.sh
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+17/04/08 10:03:28 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [fhlab1]
+root@fhlab1's password: 
+fhlab1: starting namenode, logging to /u01/app/hadoop-2.6.2/logs/hadoop-root-namenode-fhlab1.fh.com.out
+root@localhost's password: 
+localhost: starting datanode, logging to /u01/app/hadoop-2.6.2/logs/hadoop-root-datanode-fhlab1.fh.com.out
+Starting secondary namenodes [fhlab1]
+root@fhlab1's password: 
+fhlab1: starting secondarynamenode, logging to /u01/app/hadoop-2.6.2/logs/hadoop-root-secondarynamenode-fhlab1.fh.com.out
+17/04/08 10:04:05 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+starting yarn daemons
+starting resourcemanager, logging to /u01/app/hadoop-2.6.2/logs/yarn-root-resourcemanager-fhlab1.fh.com.out
+root@localhost's password: 
+localhost: starting nodemanager, logging to /u01/app/hadoop-2.6.2/logs/yarn-root-nodemanager-fhlab1.fh.com.out
+[root@fhlab1 ~]# jps
+10836 NameNode
+11244 ResourceManager
+10956 DataNode
+11100 SecondaryNameNode
+11345 NodeManager
+11438 Jps
+[root@fhlab1 ~]#
+
+
+开启Hadoop时，出现如下信息：
+
+[root@hd-m1 /]# ./hadoop/hadoop-2.6.0/sbin/start-all.sh 
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+15/01/23 20:23:41 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [Java HotSpot(TM) Client VM warning: You have loaded library /hadoop/hadoop-2.6.0/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now.
+It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+hd-m1]
+sed: -e expression #1, char 6: unknown option to `s'
+-c: Unknown cipher type 'cd'
+hd-m1: starting namenode, logging to /hadoop/hadoop-2.6.0/logs/hadoop-root-namenode-hd-m1.out
+HotSpot(TM): ssh: Could not resolve hostname HotSpot(TM): Temporary failure in name resolution
+Java: ssh: Could not resolve hostname Java: Temporary failure in name resolution
+Client: ssh: Could not resolve hostname Client: Temporary failure in name resolution
+You: ssh: Could not resolve hostname You: Temporary failure in name resolution
+warning:: ssh: Could not resolve hostname warning:: Temporary failure in name resolution
+VM: ssh: Could not resolve hostname VM: Temporary failure in name resolution
+have: ssh: Could not resolve hostname have: Temporary failure in name resolution
+library: ssh: Could not resolve hostname library: Temporary failure in name resolution
+loaded: ssh: Could not resolve hostname loaded: Temporary failure in name resolution
+might: ssh: Could not resolve hostname might: Temporary failure in name resolution
+which: ssh: Could not resolve hostname which: Temporary failure in name resolution
+have: ssh: Could not resolve hostname have: Temporary failure in name resolution
+disabled: ssh: Could not resolve hostname disabled: Temporary failure in name resolution
+stack: ssh: Could not resolve hostname stack: Temporary failure in name resolution
+guard.: ssh: Could not resolve hostname guard.: Temporary failure in name resolution
+VM: ssh: Could not resolve hostname VM: Temporary failure in name resolution
+The: ssh: Could not resolve hostname The: Temporary failure in name resolution
+try: ssh: Could not resolve hostname try: Temporary failure in name resolution
+will: ssh: Could not resolve hostname will: Temporary failure in name resolution
+to: ssh: Could not resolve hostname to: Temporary failure in name resolution
+fix: ssh: Could not resolve hostname fix: Temporary failure in name resolution
+the: ssh: Could not resolve hostname the: Temporary failure in name resolution
+stack: ssh: Could not resolve hostname stack: Temporary failure in name resolution
+guard: ssh: Could not resolve hostname guard: Temporary failure in name resolution
+It's: ssh: Could not resolve hostname It's: Temporary failure in name resolution
+now.: ssh: Could not resolve hostname now.: Temporary failure in name resolution
+recommended: ssh: Could not resolve hostname recommended: Temporary failure in name resolution
+highly: ssh: Could not resolve hostname highly: Temporary failure in name resolution
+that: ssh: Could not resolve hostname that: Temporary failure in name resolution
+you: ssh: Could not resolve hostname you: Temporary failure in name resolution
+with: ssh: Could not resolve hostname with: Temporary failure in name resolution
+'execstack: ssh: Could not resolve hostname 'execstack: Temporary failure in name resolution
+the: ssh: Could not resolve hostname the: Temporary failure in name resolution
+library: ssh: Could not resolve hostname library: Temporary failure in name resolution
+fix: ssh: Could not resolve hostname fix: Temporary failure in name resolution
+< libfile>',: ssh: Could not resolve hostname <libfile>',: Temporary failure in name resolution
+or: ssh: Could not resolve hostname or: Temporary failure in name resolution
+link: ssh: Could not resolve hostname link: Temporary failure in name resolution
+it: ssh: Could not resolve hostname it: Temporary failure in name resolution
+'-z: ssh: Could not resolve hostname '-z: Temporary failure in name resolution
+with: ssh: Could not resolve hostname with: Temporary failure in name resolution
+noexecstack'.: ssh: Could not resolve hostname noexecstack'.: Temporary failure in name resolution
+hd-s1: starting datanode, logging to /hadoop/hadoop-2.6.0/logs/hadoop-root-datanode-hd-s1.out
+hd-s2: starting datanode, logging to /hadoop/hadoop-2.6.0/logs/hadoop-root-datanode-hd-s2.out
+Starting secondary namenodes [Java HotSpot(TM) Client VM warning: You have loaded library /hadoop/hadoop-2.6.0/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now.
+It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+SecondaryNameNode]
+sed: -e expression #1, char 6: unknown option to `s'
+-c: Unknown cipher type 'cd'
+Client: ssh: Could not resolve hostname Client: Temporary failure in name resolution
+have: ssh: Could not resolve hostname have: Temporary failure in name resolution
+You: ssh: Could not resolve hostname You: Temporary failure in name resolution
+Java: ssh: Could not resolve hostname Java: Temporary failure in name resolution
+library: ssh: Could not resolve hostname library: Temporary failure in name resolution
+loaded: ssh: Could not resolve hostname loaded: Temporary failure in name resolution
+VM: ssh: Could not resolve hostname VM: Temporary failure in name resolution
+might: ssh: Could not resolve hostname might: Temporary failure in name resolution
+stack: ssh: Could not resolve hostname stack: Temporary failure in name resolution
+have: ssh: Could not resolve hostname have: Temporary failure in name resolution
+VM: ssh: Could not resolve hostname VM: Temporary failure in name resolution
+fix: ssh: Could not resolve hostname fix: Temporary failure in name resolution
+to: ssh: Could not resolve hostname to: Temporary failure in name resolution
+the: ssh: Could not resolve hostname the: Temporary failure in name resolution
+guard: ssh: Could not resolve hostname guard: Temporary failure in name resolution
+now.: ssh: Could not resolve hostname now.: Temporary failure in name resolution
+It's: ssh: Could not resolve hostname It's: Temporary failure in name resolution
+disabled: ssh: Could not resolve hostname disabled: Temporary failure in name resolution
+highly: ssh: Could not resolve hostname highly: Temporary failure in name resolution
+that: ssh: Could not resolve hostname that: Temporary failure in name resolution
+recommended: ssh: Could not resolve hostname recommended: Temporary failure in name resolution
+stack: ssh: Could not resolve hostname stack: Temporary failure in name resolution
+try: ssh: Could not resolve hostname try: Temporary failure in name resolution
+HotSpot(TM): ssh: Could not resolve hostname HotSpot(TM): Temporary failure in name resolution
+fix: ssh: Could not resolve hostname fix: Temporary failure in name resolution
+the: ssh: Could not resolve hostname the: Temporary failure in name resolution
+library: ssh: Could not resolve hostname library: Temporary failure in name resolution
+'execstack: ssh: Could not resolve hostname 'execstack: Temporary failure in name resolution
+warning:: ssh: Could not resolve hostname warning:: Temporary failure in name resolution
+with: ssh: Could not resolve hostname with: Temporary failure in name resolution
+or: ssh: Could not resolve hostname or: Temporary failure in name resolution
+< libfile>',: ssh: Could not resolve hostname <libfile>',: Temporary failure in name resolution
+you: ssh: Could not resolve hostname you: Temporary failure in name resolution
+link: ssh: Could not resolve hostname link: Temporary failure in name resolution
+it: ssh: Could not resolve hostname it: Temporary failure in name resolution
+which: ssh: Could not resolve hostname which: Temporary failure in name resolution
+with: ssh: Could not resolve hostname with: Temporary failure in name resolution
+The: ssh: Could not resolve hostname The: Temporary failure in name resolution
+noexecstack'.: ssh: Could not resolve hostname noexecstack'.: Temporary failure in name resolution
+'-z: ssh: Could not resolve hostname '-z: Temporary failure in name resolution
+will: ssh: Could not resolve hostname will: Temporary failure in name resolution
+SecondaryNameNode: ssh: Could not resolve hostname SecondaryNameNode: Temporary failure in name resolution
+guard.: ssh: Could not resolve hostname guard.: Temporary failure in name resolution
+15/01/23 20:24:48 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+starting yarn daemons
+starting resourcemanager, logging to /hadoop/hadoop-2.6.0/logs/yarn-root-resourcemanager-hd-m1.out
+hd-s1: starting nodemanager, logging to /hadoop/hadoop-2.6.0/logs/yarn-root-nodemanager-hd-s1.out
+hd-s2: starting nodemanager, logging to /hadoop/hadoop-2.6.0/logs/yarn-root-nodemanager-hd-s2.out
+
+解决办法：
+出现上述问题主要是环境变量没设置好，在~/.bash_profile或者/etc/profile中加入以下语句就没问题了。
+　　#vi /etc/profile或者vi ~/.bash_profile
+　　　　export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+　　　　export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
+然后用source重新编译使之生效即可！
+　　#source /etc/profile或者source ~/.bash_profile
+
+
+
+
+
+
+log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Exception in thread "main" org.apache.hadoop.security.AccessControlException: Permission denied: user=Administrator, access=WRITE, inode="/":root:supergroup:drwxr-xr-x
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkFsPermission(FSPermissionChecker.java:271)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:257)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:238)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkPermission(FSPermissionChecker.java:182)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkPermission(FSNamesystem.java:6545)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.deleteInternal(FSNamesystem.java:4015)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.deleteInt(FSNamesystem.java:3968)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.delete(FSNamesystem.java:3952)
+	at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.delete(NameNodeRpcServer.java:825)
+	at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolServerSideTranslatorPB.delete(ClientNamenodeProtocolServerSideTranslatorPB.java:589)
+	at org.apache.hadoop.hdfs.protocol.proto.ClientNamenodeProtocolProtos$ClientNamenodeProtocol$2.callBlockingMethod(ClientNamenodeProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:619)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:962)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:2040)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:2036)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1656)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2034)
+
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.apache.hadoop.ipc.RemoteException.instantiateException(RemoteException.java:106)
+	at org.apache.hadoop.ipc.RemoteException.unwrapRemoteException(RemoteException.java:73)
+	at org.apache.hadoop.hdfs.DFSClient.delete(DFSClient.java:1920)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$12.doCall(DistributedFileSystem.java:638)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$12.doCall(DistributedFileSystem.java:634)
+	at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+	at org.apache.hadoop.hdfs.DistributedFileSystem.delete(DistributedFileSystem.java:634)
+	at com.fh.WordCount.main(WordCount.java:65)
+Caused by: org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.security.AccessControlException): Permission denied: user=Administrator, access=WRITE, inode="/":root:supergroup:drwxr-xr-x
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkFsPermission(FSPermissionChecker.java:271)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:257)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:238)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkPermission(FSPermissionChecker.java:182)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkPermission(FSNamesystem.java:6545)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.deleteInternal(FSNamesystem.java:4015)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.deleteInt(FSNamesystem.java:3968)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.delete(FSNamesystem.java:3952)
+	at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.delete(NameNodeRpcServer.java:825)
+	at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolServerSideTranslatorPB.delete(ClientNamenodeProtocolServerSideTranslatorPB.java:589)
+	at org.apache.hadoop.hdfs.protocol.proto.ClientNamenodeProtocolProtos$ClientNamenodeProtocol$2.callBlockingMethod(ClientNamenodeProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:619)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:962)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:2040)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:2036)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1656)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2034)
+
+	at org.apache.hadoop.ipc.Client.call(Client.java:1469)
+	at org.apache.hadoop.ipc.Client.call(Client.java:1400)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:232)
+	at com.sun.proxy.$Proxy14.delete(Unknown Source)
+	at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolTranslatorPB.delete(ClientNamenodeProtocolTranslatorPB.java:521)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:187)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:102)
+	at com.sun.proxy.$Proxy15.delete(Unknown Source)
+	at org.apache.hadoop.hdfs.DFSClient.delete(DFSClient.java:1918)
+	... 5 more
+
+解决办法：Hadoop集群（第7期）_Eclipse开发环境设置
+http://www.cnblogs.com/xia520pi/archive/2012/05/20/2510723.html
+
+
+Exception in thread "main" java.lang.NullPointerException atjava.lang.ProcessBuilder.start(Unknown Source)
+
+FileStatus{path=hdfs://192.168.2.11:9000/steve/mytest1.txt; isDirectory=false; length=86; replication=1; blocksize=134217728; modification_time=1491611893914; access_time=1491619064956; owner=root; group=supergroup; permission=rw-r--r--; isSymlink=false}
+FileStatus{path=hdfs://192.168.2.11:9000/steve/test.log; isDirectory=false; length=12; replication=3; blocksize=134217728; modification_time=1491622182558; access_time=1491622181448; owner=Administrator; group=supergroup; permission=rw-r--r--; isSymlink=false}
+FileStatus{path=hdfs://192.168.2.11:9000/steve/test1.log; isDirectory=false; length=12; replication=3; blocksize=134217728; modification_time=1491622387951; access_time=1491622387250; owner=Administrator; group=supergroup; permission=rw-r--r--; isSymlink=false}
+FileStatus{path=hdfs://192.168.2.11:9000/steve/test2.log; isDirectory=false; length=12; replication=3; blocksize=134217728; modification_time=1491622517569; access_time=1491622517174; owner=Administrator; group=supergroup; permission=rw-r--r--; isSymlink=false}
+FileStatus{path=hdfs://192.168.2.11:9000/steve/test3.log; isDirectory=false; length=12; replication=3; blocksize=134217728; modification_time=1491623125657; access_time=1491623125258; owner=Administrator; group=supergroup; permission=rw-r--r--; isSymlink=false}
+FileStatus{path=hdfs://192.168.2.11:9000/steve/test4.log; isDirectory=false; length=12; replication=3; blocksize=134217728; modification_time=1491623378344; access_time=1491623377964; owner=root; group=supergroup; permission=rw-r--r--; isSymlink=false}
+FileStatus{path=hdfs://192.168.2.11:9000/steve/test5.log; isDirectory=false; length=12; replication=3; blocksize=134217728; modification_time=1491623401103; access_time=1491623400726; owner=root; group=supergroup; permission=rw-r--r--; isSymlink=false}
+Hello World!
+发现创建的文件的owner是Administrator，而不是root，可能是这个原理导致MapReduce的程序跑不起来。
+将Administrator改为root后就解决了，但又出现了下面的问题
+
+Exception in thread "main" java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.access(NativeIO.java:557)
+	at org.apache.hadoop.fs.FileUtil.canRead(FileUtil.java:977)
+	at org.apache.hadoop.util.DiskChecker.checkAccessByFileMethods(DiskChecker.java:187)
+	at org.apache.hadoop.util.DiskChecker.checkDirAccess(DiskChecker.java:174)
+	at org.apache.hadoop.util.DiskChecker.checkDir(DiskChecker.java:108)
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.confChanged(LocalDirAllocator.java:285)
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:344)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:150)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:131)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:115)
+	at org.apache.hadoop.mapred.LocalDistributedCacheManager.setup(LocalDistributedCacheManager.java:125)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job.<init>(LocalJobRunner.java:163)
+	at org.apache.hadoop.mapred.LocalJobRunner.submitJob(LocalJobRunner.java:731)
+	at org.apache.hadoop.mapreduce.JobSubmitter.submitJobInternal(JobSubmitter.java:241)
+	at org.apache.hadoop.mapreduce.Job$10.run(Job.java:1297)
+	at org.apache.hadoop.mapreduce.Job$10.run(Job.java:1294)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:396)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1656)
+	at org.apache.hadoop.mapreduce.Job.submit(Job.java:1294)
+	at org.apache.hadoop.mapred.JobClient$1.run(JobClient.java:562)
+	at org.apache.hadoop.mapred.JobClient$1.run(JobClient.java:557)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:396)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1656)
+	at org.apache.hadoop.mapred.JobClient.submitJobInternal(JobClient.java:557)
+	at org.apache.hadoop.mapred.JobClient.submitJob(JobClient.java:548)
+	at org.apache.hadoop.mapred.JobClient.runJob(JobClient.java:833)
+	at com.fh.fhwordcount2.WordCount.main(WordCount.java:88)
+
+解决办法：修改NativeIO class的以下方法，直接返回true.
+    public static boolean access(String path, AccessRight desiredAccess)
+        throws IOException {
+    	
+      return true;
+//      return access0(path, desiredAccess.accessRight());
+    }
+    
+    
+hadoop源码分析（MapReduce）
+http://blog.csdn.net/anhuidelinger/article/details/12949021
+
+hadoop 2.7.3 源码分析（一）：环境搭建
+http://blog.csdn.net/alphags/article/details/53349855
+hadoop 2.7.3 源码分析（二）：超简单源码修改测试
+http://blog.csdn.net/alphags/article/details/53350150
+hadoop 2.7.3 源码分析（三）：hadoop远程调试
+http://blog.csdn.net/alphags/article/details/53351627
+hadoop 2.7.3 源码分析（四）：namenode启动流程
+http://blog.csdn.net/alphags/article/details/53364444
+Hbase 行键设计（rowkey） 实现多条件查询
+http://blog.csdn.net/alphags/article/details/53786777
+
+
+Install HBase, using the zookeep in HBase:
+
+[root@fhlab1 ~]# start-hbase.sh 
+root@fhlab1's password: 
+fhlab1: +======================================================================+
+fhlab1: |                    Error: JAVA_HOME is not set                       |
+fhlab1: +----------------------------------------------------------------------+
+fhlab1: | Please download the latest Sun JDK from the Sun Java web site        |
+fhlab1: |     > http://www.oracle.com/technetwork/java/javase/downloads        |
+fhlab1: |                                                                      |
+fhlab1: | HBase requires Java 1.7 or later.                                    |
+fhlab1: +======================================================================+
+starting master, logging to /u01/app/hbase-1.1.2/logs/hbase-root-master-fhlab1.fh.com.out
+root@fhlab1's password: 
+fhlab1: +======================================================================+
+fhlab1: |                    Error: JAVA_HOME is not set                       |
+fhlab1: +----------------------------------------------------------------------+
+fhlab1: | Please download the latest Sun JDK from the Sun Java web site        |
+fhlab1: |     > http://www.oracle.com/technetwork/java/javase/downloads        |
+fhlab1: |                                                                      |
+fhlab1: | HBase requires Java 1.7 or later.                                    |
+fhlab1: +======================================================================+
+
+在hbase-env.sh中加入这一条就可以了：export JAVA_HOME=/u01/app/jdk1.7.0_80
+
+Hadoop Web Console
+http://fhlab1:50070/
+
+
+HBase Web Console
+http://fhlab1:16030/
+1.1.2是16010, 1.0版本后改为16030端口了
+
+
+
+Stop bigdata applications:
+
+[root@fhlab1 ~]# jps
+14852 HRegionServer
+10836 NameNode
+11244 ResourceManager
+10956 DataNode
+14658 HQuorumPeer
+14717 HMaster
+11100 SecondaryNameNode
+15866 Jps
+11345 NodeManager
+
+[root@fhlab1 ~]# stop-hbase.sh 
+stopping hbase......................
+root@fhlab1's password: 
+fhlab1: stopping zookeeper.
+[root@fhlab1 ~]# jps
+10836 NameNode
+11244 ResourceManager
+10956 DataNode
+16226 Jps
+11100 SecondaryNameNode
+11345 NodeManager
+     
+[root@fhlab1 ~]# stop-all.sh 
+This script is Deprecated. Instead use stop-dfs.sh and stop-yarn.sh
+17/04/08 17:55:08 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Stopping namenodes on [fhlab1]
+root@fhlab1's password: 
+fhlab1: stopping namenode
+root@localhost's password: 
+localhost: stopping datanode
+Stopping secondary namenodes [fhlab1]
+root@fhlab1's password: 
+fhlab1: stopping secondarynamenode
+17/04/08 17:55:44 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+stopping yarn daemons
+stopping resourcemanager
+root@localhost's password: 
+localhost: stopping nodemanager
+no proxyserver to stop
+[root@fhlab1 ~]# jps
+16676 Jps
+
+
+
+Python学习（2017-6-18）===========================================>>>>>>>>>>>>>>>>>>>>>
+在我的linux vitual machine中已经安装了Python，可以直接使用python命令了。
+
+交互式编程：
+[root@fhlab1 app]# python
+Python 2.4.3 (#1, Dec 11 2006, 11:38:52) 
+[GCC 4.1.1 20061130 (Red Hat 4.1.1-43)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print "Hello world!"
+Hello world!
+>>> print("Hello world!");
+Hello world!
+
+脚本式编程：
+[root@fhlab1 app]# vi hello.py 
+#!/usr/bin/python
+print("Hello world!");
+[root@fhlab1 app]# chmod 755 hello.py
+[root@fhlab1 app]# ./hello.py 
+Hello world!
+
+
+
+
+
+Scala学习（2017-6-18）===========================================>>>>>>>>>>>>>>>>>>>>>
+Download scala: http://www.scala-lang.org/
+
+[root@fhlab1 mysoft]# tar -xzf scala-2.11.11.tgz
+[root@fhlab1 mysoft]# mv scala-2.11.11 /u01/app/
+
+vi ~/.bash_profile
+export SCALA_HOME=/u01/app/scala-2.11.11
+export PATH=${SCALA_HOME}/bin:${PATH}
+
+[root@fhlab1 ~]# scala -version
+Scala code runner version 2.11.11 -- Copyright 2002-2017, LAMP/EPFL
+
+交互式编程：
+[root@fhlab1 app]# scala
+Welcome to Scala 2.11.11 (Java HotSpot(TM) Client VM, Java 1.7.0_80).
+Type in expressions for evaluation. Or try :help.
+
+scala> 1+1
+res0: Int = 2
+
+scala> println("Hello world!")
+Hello world!
+
+脚本式编程：
+[root@fhlab1 app]# vi HelloWorld.scala
+
+object HelloWorld{
+  def main(args: Array[String]){
+    println("Hello world");
+  }
+}
+[root@fhlab1 app]# scala HelloWorld.scala 
+Hello world
+[root@fhlab1 app]# ls -l HelloWorld* --------------------------->说明上面的scala直接运行脚本没有先去编译生成class文件
+-rw-r--r-- 1 root root 87 Apr 21 17:26 HelloWorld.scala
+[root@fhlab1 app]# scalac HelloWorld.scala
+[root@fhlab1 app]# ls -l HelloWorld* --------------------------->可以看到经过编译后生成了class文件
+-rw-r--r-- 1 root root 586 Apr 21 17:31 HelloWorld.class
+-rw-r--r-- 1 root root 635 Apr 21 17:31 HelloWorld$.class
+-rw-r--r-- 1 root root  87 Apr 21 17:26 HelloWorld.scala
+[root@fhlab1 app]# scala HelloWorld
+No such file or class on classpath: HelloWorld
+[root@fhlab1 app]# scala -cp . HelloWorld
+Hello world
+[root@fhlab1 app]# scala -classpath . HelloWorld
+Hello world
+[root@fhlab1 app]# java HelloWorld
+Error: Could not find or load main class HelloWorld
+[root@fhlab1 app]# java -cp . HelloWorld
+Exception in thread "main" java.lang.NoClassDefFoundError: scala/Predef$
+        at HelloWorld$.main(HelloWorld.scala:3)
+        at HelloWorld.main(HelloWorld.scala)
+Caused by: java.lang.ClassNotFoundException: scala.Predef$
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:425)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+        ... 2 more
+[root@fhlab1 app]# java -cp . HelloWorld.class 
+Error: Could not find or load main class HelloWorld.class
+[root@fhlab1 app]# java -cp ".;/u01/app/scala-2.11.11/lib/scala-library.jar" HelloWorld
+Error: Could not find or load main class HelloWorld
+[root@fhlab1 app]# java -cp ".:/u01/app/scala-2.11.11/lib/scala-library.jar" HelloWorld ---->需要引入scala的jar包才能去运行scala的class。
+Hello world
+
+Eclipse Scala plugin install:
+
+Error happened when starting Eclipse:
+		JDT Weaving is currently disabled. The Scala IDE needs JDT Weaving to be active,
+		or it will not work correctly. 
+		Activate JDT Weaving and Restart Eclipse? (Highly Recommended)
+
+		Eclipse version: Version: Luna Service Release 1 (4.4.1)
+		Download Scala IDE for Ecplise:
+		http://scala-ide.org/download/prev-stable.html
+			4.6.0 Release for Scala 2.12.2
+			4.5.0 Release for Scala 2.11.8
+			4.4.1 Release for Scala 2.11.8
+			4.4.0 Release for Scala 2.11.8
+			4.3.0 Release for Scala 2.11.7
+			4.2.0 Release for Scala 2.11.7
+			4.1.1 Release for Scala 2.11.7
+			4.1.0 Release for Scala 2.11.7
+			4.1.0 Release for Scala 2.11.6
+			4.0.0 Release for Scala 2.11.6
+			3.0.3 / 3.0.4 Release
+			...
+		Install plugin from local zip file:
+			重新打包下载下来的base-20160504-1321.zip，使包内进去就是plugin、features文件夹，不要有base这一及
+			Eclipse -> help -> Install new software -> Add... -> 选择新的zip包 即可安装.
+			试了几次直接将zip包解压到eclipse目录下，都不管用。也在网上搜到了如何从网上下载安装插件，但可能应为网速的原因都安装不成功。
+				http://download.scala-ide.org/sdk/lithium/e44/scala211/dev/site/（不成功）
+		2017-7-1 成功将Scala IDE plugin for Eclipse安装成功。
+		昨天成功运行了spark sql 和storm，了解了Spark RDD算子，包括Transfermation和Action。
+		有了这些基础，程序能跑起来，接下来我就可以深入去学Scala、Spark、Storm的具体内容和每一块细节了。
+
+
+Spark学习（2017-6-18）===========================================>>>>>>>>>>>>>>>>>>>>>
+Download spark: 
+
+[root@fhlab1 mysoft]# tar -xzf spark-1.6.3-bin-hadoop2.6.tgz
+[root@fhlab1 mysoft]# mv spark-1.6.3-bin-hadoop2.6 /u01/app/
+
+[root@fhlab1 ~]# vi ~/.bash_profile
+export SPARK_HOME=/u01/app/spark-1.6.3-bin-hadoop2.6
+export PATH=${SPARK_HOME}/bin:${PATH}
+
+
+[root@fhlab1 ~]# spark-shell 
+log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Using Spark's repl log4j profile: org/apache/spark/log4j-defaults-repl.properties
+To adjust logging level use sc.setLogLevel("INFO")
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 1.6.3
+      /_/
+
+Using Scala version 2.10.5 (Java HotSpot(TM) Client VM, Java 1.7.0_80)
+Type in expressions to have them evaluated.
+Type :help for more information.
+Spark context available as sc.
+17/04/21 15:57:55 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+17/04/21 15:57:56 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+17/04/21 15:58:05 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+17/04/21 15:58:05 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+Java HotSpot(TM) Client VM warning: You have loaded library /tmp/libnetty-transport-native-epoll416826139077409833.so which might have disabled stack guard. The VM will try to fix the stack guard now.
+It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+17/04/21 15:58:10 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+17/04/21 15:58:10 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+17/04/21 15:58:18 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+17/04/21 15:58:18 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+SQL context available as sqlContext.
+
+scala> 
+
+scala> sc.version
+res3: String = 1.6.3
+
+scala> sc.appName
+res4: String = Spark shell
+
+在SecureCRT中使用spark-shell时发现无法用Backspace或Delete删除输错的命令，Jason建议用Putty，但我下载了Putty发现启动spark-shell时就报错。
+后来上网查了，把SecureCRT->会话选项 -> 终端 -> 仿真里的终端选项由VT100改为Linux就好了。
+磨刀不误砍柴功，准备好工具和环境这些基础，后面就能做的更快了更顺了。
+
+
+[root@fhlab1 ~]# cd $SPARK_HOME/bin
+[root@fhlab1 bin]# ./run-example SparkPi 10(迭代次数) 计算π的值
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/04/21 15:59:29 INFO SparkContext: Running Spark version 1.6.3
+17/04/21 15:59:30 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/04/21 15:59:30 INFO SecurityManager: Changing view acls to: root
+17/04/21 15:59:30 INFO SecurityManager: Changing modify acls to: root
+17/04/21 15:59:30 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(root); users with modify permissions: Set(root)
+17/04/21 15:59:31 INFO Utils: Successfully started service 'sparkDriver' on port 61093.
+17/04/21 15:59:32 INFO Slf4jLogger: Slf4jLogger started
+17/04/21 15:59:32 INFO Remoting: Starting remoting
+17/04/21 15:59:33 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 37987.
+17/04/21 15:59:33 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@192.168.2.11:37987]
+17/04/21 15:59:33 INFO SparkEnv: Registering MapOutputTracker
+17/04/21 15:59:33 INFO SparkEnv: Registering BlockManagerMaster
+17/04/21 15:59:33 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-beba672b-5d84-44ad-878f-aae9f94388a1
+17/04/21 15:59:33 INFO MemoryStore: MemoryStore started with capacity 517.4 MB
+17/04/21 15:59:33 INFO SparkEnv: Registering OutputCommitCoordinator
+17/04/21 15:59:33 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+17/04/21 15:59:33 INFO SparkUI: Started SparkUI at http://192.168.2.11:4040
+17/04/21 15:59:33 INFO HttpFileServer: HTTP File server directory is /tmp/spark-b9e450e7-0e5f-42cf-acbc-b97972f85b04/httpd-9a75fe99-283d-4bb1-9f8e-754a110cbe9a
+17/04/21 15:59:33 INFO HttpServer: Starting HTTP Server
+17/04/21 15:59:33 INFO Utils: Successfully started service 'HTTP file server' on port 60858.
+17/04/21 15:59:35 INFO SparkContext: Added JAR file:/u01/app/spark-1.6.3-bin-hadoop2.6/lib/spark-examples-1.6.3-hadoop2.6.0.jar at http://192.168.2.11:60858/jars/spark-examples-1.6.3-hadoop2.6.0.jar with timestamp 1492761575827
+17/04/21 15:59:36 INFO Executor: Starting executor ID driver on host localhost
+17/04/21 15:59:36 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 29197.
+17/04/21 15:59:36 INFO NettyBlockTransferService: Server created on 29197
+17/04/21 15:59:36 INFO BlockManagerMaster: Trying to register BlockManager
+17/04/21 15:59:36 INFO BlockManagerMasterEndpoint: Registering block manager localhost:29197 with 517.4 MB RAM, BlockManagerId(driver, localhost, 29197)
+17/04/21 15:59:36 INFO BlockManagerMaster: Registered BlockManager
+17/04/21 15:59:37 INFO SparkContext: Starting job: reduce at SparkPi.scala:36
+17/04/21 15:59:37 INFO DAGScheduler: Got job 0 (reduce at SparkPi.scala:36) with 10 output partitions
+17/04/21 15:59:37 INFO DAGScheduler: Final stage: ResultStage 0 (reduce at SparkPi.scala:36)
+17/04/21 15:59:37 INFO DAGScheduler: Parents of final stage: List()
+17/04/21 15:59:37 INFO DAGScheduler: Missing parents: List()
+17/04/21 15:59:37 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at map at SparkPi.scala:32), which has no missing parents
+17/04/21 15:59:38 WARN SizeEstimator: Failed to check whether UseCompressedOops is set; assuming yes
+17/04/21 15:59:40 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 1904.0 B, free 517.4 MB)
+17/04/21 15:59:40 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 1221.0 B, free 517.4 MB)
+17/04/21 15:59:40 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:29197 (size: 1221.0 B, free: 517.4 MB)
+17/04/21 15:59:40 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1006
+17/04/21 15:59:40 INFO DAGScheduler: Submitting 10 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at map at SparkPi.scala:32)
+17/04/21 15:59:40 INFO TaskSchedulerImpl: Adding task set 0.0 with 10 tasks
+17/04/21 15:59:40 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, partition 0,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:40 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+17/04/21 15:59:40 INFO Executor: Fetching http://192.168.2.11:60858/jars/spark-examples-1.6.3-hadoop2.6.0.jar with timestamp 1492761575827
+17/04/21 15:59:41 INFO Utils: Fetching http://192.168.2.11:60858/jars/spark-examples-1.6.3-hadoop2.6.0.jar to /tmp/spark-b9e450e7-0e5f-42cf-acbc-b97972f85b04/userFiles-227dde5a-f811-4ecf-9840-d92967e0b49b/fetchFileTemp5215017540990842484.tmp
+17/04/21 15:59:44 INFO Executor: Adding file:/tmp/spark-b9e450e7-0e5f-42cf-acbc-b97972f85b04/userFiles-227dde5a-f811-4ecf-9840-d92967e0b49b/spark-examples-1.6.3-hadoop2.6.0.jar to class loader
+17/04/21 15:59:45 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 1.0 in stage 0.0 (TID 1, localhost, partition 1,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+17/04/21 15:59:45 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 2.0 in stage 0.0 (TID 2, localhost, partition 2,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 2.0 in stage 0.0 (TID 2)
+17/04/21 15:59:45 INFO Executor: Finished task 2.0 in stage 0.0 (TID 2). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 3.0 in stage 0.0 (TID 3, localhost, partition 3,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+17/04/21 15:59:45 INFO Executor: Finished task 3.0 in stage 0.0 (TID 3). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 4630 ms on localhost (1/10)
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 1.0 in stage 0.0 (TID 1) in 381 ms on localhost (2/10)
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 2.0 in stage 0.0 (TID 2) in 331 ms on localhost (3/10)
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 4.0 in stage 0.0 (TID 4, localhost, partition 4,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 4.0 in stage 0.0 (TID 4)
+17/04/21 15:59:45 INFO Executor: Finished task 4.0 in stage 0.0 (TID 4). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 4.0 in stage 0.0 (TID 4) in 50 ms on localhost (4/10)
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 5.0 in stage 0.0 (TID 5, localhost, partition 5,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 5.0 in stage 0.0 (TID 5)
+17/04/21 15:59:45 INFO Executor: Finished task 5.0 in stage 0.0 (TID 5). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 6.0 in stage 0.0 (TID 6, localhost, partition 6,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 6.0 in stage 0.0 (TID 6)
+17/04/21 15:59:45 INFO Executor: Finished task 6.0 in stage 0.0 (TID 6). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 7.0 in stage 0.0 (TID 7, localhost, partition 7,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 7.0 in stage 0.0 (TID 7)
+17/04/21 15:59:45 INFO Executor: Finished task 7.0 in stage 0.0 (TID 7). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 8.0 in stage 0.0 (TID 8, localhost, partition 8,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 8.0 in stage 0.0 (TID 8)
+17/04/21 15:59:45 INFO Executor: Finished task 8.0 in stage 0.0 (TID 8). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Starting task 9.0 in stage 0.0 (TID 9, localhost, partition 9,PROCESS_LOCAL, 2155 bytes)
+17/04/21 15:59:45 INFO Executor: Running task 9.0 in stage 0.0 (TID 9)
+17/04/21 15:59:45 INFO Executor: Finished task 9.0 in stage 0.0 (TID 9). 1031 bytes result sent to driver
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 3.0 in stage 0.0 (TID 3) in 565 ms on localhost (5/10)
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 7.0 in stage 0.0 (TID 7) in 145 ms on localhost (6/10)
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 8.0 in stage 0.0 (TID 8) in 110 ms on localhost (7/10)
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 9.0 in stage 0.0 (TID 9) in 71 ms on localhost (8/10)
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 5.0 in stage 0.0 (TID 5) in 246 ms on localhost (9/10)
+17/04/21 15:59:45 INFO DAGScheduler: ResultStage 0 (reduce at SparkPi.scala:36) finished in 5.251 s
+17/04/21 15:59:45 INFO TaskSetManager: Finished task 6.0 in stage 0.0 (TID 6) in 200 ms on localhost (10/10)
+17/04/21 15:59:45 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+17/04/21 15:59:45 INFO DAGScheduler: Job 0 finished: reduce at SparkPi.scala:36, took 8.407451 s
+Pi is roughly 3.144275144275144
+17/04/21 15:59:45 INFO SparkUI: Stopped Spark web UI at http://192.168.2.11:4040
+17/04/21 15:59:46 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+17/04/21 15:59:46 INFO MemoryStore: MemoryStore cleared
+17/04/21 15:59:46 INFO BlockManager: BlockManager stopped
+17/04/21 15:59:46 INFO BlockManagerMaster: BlockManagerMaster stopped
+17/04/21 15:59:46 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+17/04/21 15:59:46 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+17/04/21 15:59:46 INFO SparkContext: Successfully stopped SparkContext
+17/04/21 15:59:46 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+17/04/21 15:59:46 INFO RemoteActorRefProvider$RemotingTerminator: Remoting shut down.
+17/04/21 15:59:46 INFO ShutdownHookManager: Shutdown hook called
+17/04/21 15:59:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-b9e450e7-0e5f-42cf-acbc-b97972f85b04/httpd-9a75fe99-283d-4bb1-9f8e-754a110cbe9a
+17/04/21 15:59:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-b9e450e7-0e5f-42cf-acbc-b97972f85b04
+
+
+val path="fhtest1.txt"
+val rdd1=sc.textFile(path,2)
+rdd1.collect()
+rdd1.foreach(print(_))
+rdd1.saveAsTextFile("fhtest1_bak.txt")
+
+scala> val path="fhtest1.txt"
+path: String = fhtest1.txt
+
+scala> val rdd1=sc.textFile(path,2)
+17/04/21 18:38:47 WARN SizeEstimator: Failed to check whether UseCompressedOops is set; assuming yes
+rdd1: org.apache.spark.rdd.RDD[String] = fhtest1.txt MapPartitionsRDD[1] at textFile at <console>:29
+
+scala> rdd1.collect()
+res2: Array[String] = Array(Hello world!, This is test file., "")
+
+scala> rdd1.foreach(print(_))
+Hello world!This is test file.
+scala> rdd1.saveAsTextFile("fhtest1_bak.txt")
+
+[root@fhlab1 fhtest1_bak.txt]# ls -l
+total 8
+-rw-r--r-- 1 root root 32 Apr 21 18:40 part-00000
+-rw-r--r-- 1 root root  1 Apr 21 18:40 part-00001
+-rw-r--r-- 1 root root  0 Apr 21 18:40 _SUCCESS
+[root@fhlab1 fhtest1_bak.txt]# cat part-00001 
+
+[root@fhlab1 fhtest1_bak.txt]# cat part-00000 
+Hello world!
+This is test file.
+[root@fhlab1 fhtest1_bak.txt]# cat _SUCCESS 
+[root@fhlab1 fhtest1_bak.txt]# 
+
+
+Spark函数详解系列之RDD基本转换
+http://www.cnblogs.com/MOBIN/p/5373256.html
+
+本系列主要讲解Spark中常用的函数操作：
+         1.RDD基本转换
+         2.键-值RDD转换
+         3.Action操作篇
+本节所讲函数
+1.map(func)
+2.flatMap(func)
+3.mapPartitions(func)
+4.mapPartitionsWithIndex(func)
+5.simple(withReplacement,fraction,seed)
+6.union(ortherDataset)
+7.intersection(otherDataset)
+8.distinct([numTasks])
+9.cartesian(otherDataset)
+10.coalesce(numPartitions，shuffle)
+11.repartition(numPartition)
+12.glom()
+13.randomSplit(weight:Array[Double],seed)
+
+
+Spark算子系列文章
+http://lxw1234.com/archives/2015/07/363.htm
+
+Spark算子：RDD基本转换操作(1)–map、flagMap、distinct
+Spark算子：RDD创建操作
+Spark算子：RDD基本转换操作(2)–coalesce、repartition
+Spark算子：RDD基本转换操作(3)–randomSplit、glom
+Spark算子：RDD基本转换操作(4)–union、intersection、subtract
+Spark算子：RDD基本转换操作(5)–mapPartitions、mapPartitionsWithIndex
+Spark算子：RDD基本转换操作(6)–zip、zipPartitions
+Spark算子：RDD基本转换操作(7)–zipWithIndex、zipWithUniqueId
+
+Spark算子：统计RDD分区中的元素及数量 
+
+Spark算子：RDD键值转换操作(1)–partitionBy、mapValues、flatMapValues
+Spark算子：RDD键值转换操作(2)–combineByKey、foldByKey 
+Spark算子：RDD键值转换操作(3)–groupByKey、reduceByKey、reduceByKeyLocally
+Spark算子：RDD键值转换操作(4)–cogroup、join
+Spark算子：RDD键值转换操作(5)–leftOuterJoin、rightOuterJoin、subtractByKey
+
+Spark算子：RDD行动Action操作(1)–first、count、reduce、collect
+Spark算子：RDD行动Action操作(2)–take、top、takeOrdered
+Spark算子：RDD行动Action操作(3)–aggregate、fold、lookup
+Spark算子：RDD行动Action操作(4)–countByKey、foreach、foreachPartition、sortBy
+Spark算子：RDD行动Action操作(5)–saveAsTextFile、saveAsSequenceFile、saveAsObjectFile
+Spark算子：RDD行动Action操作(6)–saveAsHadoopFile、saveAsHadoopDataset
+Spark算子：RDD行动Action操作(7)–saveAsNewAPIHadoopFile、saveAsNewAPIHadoopDataset
+
+Spark算子：RDD行动Action操作(4)–countByKey、foreach、foreachPartition、sortBy
+http://lxw1234.com/archives/2015/07/399.htm
+
+countByKey
+	def countByKey(): Map[K, Long]
+	countByKey用于统计RDD[K,V]中每个K的数量。
+
+scala> var rdd1 = sc.makeRDD(Array(("A",0),("A",2),("B",1),("B",2),("B",3)))
+rdd1: org.apache.spark.rdd.RDD[(String, Int)] = ParallelCollectionRDD[13] at makeRDD at <console>:32
+
+scala> rdd1.countByKey
+res13: scala.collection.Map[String,Long] = Map(B -> 3, A -> 2)
+
+foreach
+	def foreach(f: (T) ⇒ Unit): Unit
+	foreach用于遍历RDD,将函数f应用于每一个元素。
+	但要注意，如果对RDD执行foreach，只会在Executor端有效，而并不是Driver端。
+	比如：rdd.foreach(println)，只会在Executor的stdout中打印出来，Driver端是看不到的。
+	我在Spark1.4中是这样，不知道是否真如此。
+	这时候，使用accumulator共享变量与foreach结合，倒是个不错的选择。
+
+scala> var cnt = sc.accumulator(0)
+cnt: org.apache.spark.Accumulator[Int] = 0
+
+scala> var rdd1 = sc.makeRDD(1 to 10,2)
+rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[16] at makeRDD at <console>:32
+
+scala> rdd1.foreach(x => cnt += x)
+
+scala> cnt.value
+res15: Int = 55
+
+scala> rdd1.collect.foreach(println)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+scala> 
+
+foreachPartition
+	def foreachPartition(f: (Iterator[T]) ⇒ Unit): Unit
+	foreachPartition和foreach类似，只不过是对每一个分区使用f。
+scala> var rdd1 = sc.makeRDD(1 to 10,2)
+rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[17] at makeRDD at <console>:32
+
+scala> var allsize = sc.accumulator(0)
+allsize: org.apache.spark.Accumulator[Int] = 0
+
+scala> var rdd1 = sc.makeRDD(1 to 10,2)
+rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[18] at makeRDD at <console>:32
+
+scala> rdd1.foreachPartition { x => {
+     | allsize += x.size
+     | }}
+
+scala> println(allsize.value)
+10
+
+sortBy
+	def sortBy[K](f: (T) ⇒ K, ascending: Boolean = true, numPartitions: Int = this.partitions.length)(implicit ord: Ordering[K], ctag: ClassTag[K]): RDD[T]
+	sortBy根据给定的排序k函数将RDD中的元素进行排序。
+scala> var rdd1 = sc.makeRDD(Seq(3,6,7,1,2,0),2)
+rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[19] at makeRDD at <console>:32
+
+scala> rdd1.sortBy(x => x).collect
+res19: Array[Int] = Array(0, 1, 2, 3, 6, 7) //默认升序
+
+scala> rdd1.sortBy(x => x,false).collect
+res20: Array[Int] = Array(7, 6, 3, 2, 1, 0) //降序
+
+//RDD[K,V]类型
+scala> var rdd1 = sc.makeRDD(Array(("A",2),("A",1),("B",6),("B",3),("B",7)))
+rdd1: org.apache.spark.rdd.RDD[(String, Int)] = ParallelCollectionRDD[30] at makeRDD at <console>:32
+
+scala> rdd1.sortBy(x => x).collect
+res21: Array[(String, Int)] = Array((A,1), (A,2), (B,3), (B,6), (B,7))
+
+//按照V进行降序排序
+scala> rdd1.sortBy(x => x._2,false).collect
+res22: Array[(String, Int)] = Array((B,7), (B,6), (B,3), (A,2), (A,1))
+
+
+Spark开发 - Spark Scala开发 & Spark Java开发：
+
+方辉第一个Spark Scala程序：Spark Pi
+
+Step 1: 将Spark2.1.1下的jars里的所有Jar包都加到Eclipse Scala项目里。
+
+Step 2: fhspark1/SparkPi.scala文件：
+package fhspark1
+
+import scala.util.Random
+import org.apache.spark.sql.SparkSession
+
+object SparkPi {
+  def main(args: Array[String]) {
+    val spark = SparkSession
+      .builder
+      .appName("Spark Pi")
+      .getOrCreate()
+    val slices = if (args.length > 0) args(0).toInt else 2
+    val n = math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow
+    val count = spark.sparkContext.parallelize(1 until n, slices).map { i =>
+      val x = math.random * 2 - 1
+      val y = math.random * 2 - 1
+      if (x*x + y*y < 1) 1 else 0
+    }.reduce(_ + _)
+    println("Pi is roughly " + 4.0 * count / (n - 1))
+    spark.stop()
+  }
+}
+Step 3: Run Scala application - 遇到以下error。
+Exception in thread "main" java.lang.UnsupportedClassVersionError: org/apache/hadoop/fs/FSDataInputStream : Unsupported major.minor version 51.0
+原因：使用了JDK1.6.0_45，改成JDK1.7.0_80即可解决。
+
+17/07/02 12:11:19 ERROR SparkContext: Error initializing SparkContext.
+org.apache.spark.SparkException: A master URL must be set in your configuration
+从提示中可以看出找不到程序运行的master，此时需要配置环境变量。
+传递给spark的master url可以有如下几种：
+local 本地单线程
+local[K] 本地多线程（指定K个内核）
+local[*] 本地多线程（指定所有可用内核）
+spark://HOST:PORT 连接到指定的 Spark standalone cluster master，需要指定端口。
+mesos://HOST:PORT 连接到指定的 Mesos 集群，需要指定端口。
+yarn-client客户端模式 连接到 YARN 集群。需要配置 HADOOP_CONF_DIR。
+yarn-cluster集群模式 连接到 YARN 集群。需要配置 HADOOP_CONF_DIR。
+解决办法：VM options中输入“-Dspark.master=local”，指示本程序本地单线程运行。
+
+17/07/02 12:17:50 ERROR SparkContext: Error initializing SparkContext.
+java.lang.IllegalArgumentException: System memory 259522560 must be at least 471859200. Please increase heap size using the --driver-memory option or spark.driver.memory in Spark configuration.
+这是JVM的memory不够。
+解决办法：VM options中输入“-Xms215m -Xmx1024m”【注意：是加在VM options里，不是program parameters】。
+
+windows环境下，解决：could not locate executable **winutils.exe in the Hadoop binaries.问题
+ERROR Shell: Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable E:\hadoop-2.6.3\bin\winutils.exe in the Hadoop binaries.
+解决办法：将winutils.exe文件导入到对应hadoop的bin目录下面去，再在windows环境变量中配制HADOOP_HOME就搞定！
+
+方辉第一个Spark Java程序：Spark Pi
+package fhspark1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.Function;
+import org.apache.spark.api.java.function.Function2;
+import org.apache.spark.sql.SparkSession;
+
+public class SparkPiJava {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	    SparkSession spark = SparkSession
+	    	      .builder()
+	    	      .appName("JavaSparkPi")
+	    	      .getOrCreate();
+
+	    JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+
+	    int slices = (args.length == 1) ? Integer.parseInt(args[0]) : 2;
+	    int n = 100000 * slices;
+	    List<Integer> l = new ArrayList<>(n);
+	    for (int i = 0; i < n; i++) {
+	      l.add(i);
+	    }
+
+	    JavaRDD<Integer> dataSet = jsc.parallelize(l, slices);
+
+	    int count = dataSet.map(new Function<Integer, Integer>() {
+	      @Override
+	      public Integer call(Integer integer) {
+	        double x = Math.random() * 2 - 1;
+	        double y = Math.random() * 2 - 1;
+	        return (x * x + y * y < 1) ? 1 : 0;
+	      }
+	    }).reduce(new Function2<Integer, Integer, Integer>() {
+	      @Override
+	      public Integer call(Integer integer, Integer integer2) {
+	        return integer + integer2;
+	      }
+	    });
+
+	    System.out.println("Pi is roughly " + 4.0 * count / n);
+
+	    spark.stop();
+	}
+}
+刚开始运行也会遇到上面Spark Scala开发时遇到的问题，用同样的方法去解决就可以了。
+
+
+
+
+
+
+Spark SQL:
+
+入门材料：Spark-SQL官方文档
+http://spark.apache.org/docs/latest/sql-programming-guide.html
+
+Spark 2.1.1遇到的问题：
+启动spark-shell时
+17/04/21 21:33:11 WARN SparkContext: Support for Java 7 is deprecated as of Spark 2.0.0
+17/04/21 21:33:12 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/04/21 21:33:28 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+17/04/21 21:33:29 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+17/04/21 21:33:31 WARN ObjectStore: Failed to get database global_temp, returning NoSuchObjectException
+
+Spark shell在输入命令时，命令太长如何换行？
+
+cd $SPARK_HOME
+spark-shell
+import org.apache.spark.sql.SparkSession
+val spark = SparkSession.builder().appName("Spark SQL basic example").config("spark.some.config.option", "some-value").getOrCreate()
+// For implicit conversions like converting RDDs to DataFrames
+import spark.implicits._
+
+val df = spark.read.json("examples/src/main/resources/people.json")
+df printSchema
+df.show() 或 df.show 或df show
+
+df.select( $"name", $"age"+1, $"age") show
+df.select( $"name", $"age"+1, $"age").filter($"age" > 18).groupBy("name").count() show
+Spark-SQL 与SQL的对应关系：
+	Select - select
+	Join - 
+	Where - filter
+	Group by - groupBy
+	Order by - 
+	count() - count()
+	
+通过创建view来满足执行文本SQL语句：
+	有了这个，就可以达到与关系型DB一样的所有SQL操作了，包括Join/Union/Minus等等。
+	
+	//Use temporary view
+	df.createOrReplaceTempView("people")
+	val sqlDF = spark.sql("SELECT * FROM people")
+	sqlDF.show()
+	//Use global temporary view
+	df.createGlobalTempView("people")
+	spark.sql("SELECT * FROM global_temp.people").show()
+	spark.newSession().sql("SELECT * FROM global_temp.people").show()
+	
+Spark-Sql CLI:
+	./bin/spark-sql --driver-class-path  /u01/app/spark-2.1.1-bin-hadoop2.7/ojdbc7.jar
+	show tables;
+
+
+
+Spark修炼之道（进阶篇）——Spark入门到精通：第九节 Spark SQL运行流程解析
+http://blog.csdn.net/lovehuangjiaju/article/details/50439715
+1. Full table query
+2. SQL with filter
+3. Join
+4. Sub-query
+5. group by, aggregate
+
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+// this is used to implicitly convert an RDD to a DataFrame.
+import sqlContext.implicits._
+
+// Define the schema using a case class.
+// Note: Case classes in Scala 2.10 can support only up to 22 fields. To work around this limit,
+// you can use custom classes that implement the Product interface.
+case class Person(name: String, age: Int)
+
+// Create an RDD of Person objects and register it as a table.
+val people = sc.textFile("/examples/src/main/resources/people.txt").map(_.split(",")).map(p => Person(p(0), p(1).trim.toInt)).toDF()
+people.registerTempTable("people")
+
+// SQL statements can be run by using the sql methods provided by sqlContext.
+val teenagers = sqlContext.sql("SELECT name, age FROM people WHERE age >= 13 AND age <= 29")
+
+scala> teenagers.printSchema
+root
+ |-- name: string (nullable = true)
+ |-- age: integer (nullable = false)
+
+scala> teenagers.queryExecution
+res7: org.apache.spark.sql.execution.QueryExecution = 
+== Parsed Logical Plan ==
+'Project [unresolvedalias('name),unresolvedalias('age)]
++- 'Filter (('age >= 13) && ('age <= 19))
+   +- 'UnresolvedRelation `people`, None
+
+== Analyzed Logical Plan ==
+name: string, age: int
+Project [name#0,age#1]
++- Filter ((age#1 >= 13) && (age#1 <= 19))
+   +- Subquery people
+      +- LogicalRDD [name#0,age#1], MapPartitionsRDD[7] at rddToDataFrameHolder at <console>:34
+
+== Optimized Logical Plan ==
+Project [name#0,age#1]
++- Filter ((age#1 >= 13) && (age#1 <= 19))
+   +- LogicalRDD [name#0,age#1], MapPartitionsRDD[7] at rddToDataFrameHolder at <console>:34
+
+== Physical Plan ==
+Project [name#0,age#1]
++- Filter ((age#1 >= 13) && (age#1 <= 19))
+   +- Scan ExistingRDD[name#0,age#1]
+   
+   
+使用Spark读写CSV格式文件（转）
+http://www.cnblogs.com/gaopeng527/p/4961464.html
+如何使用
+1、在Spark SQL中使用
+2、通过Scala方式
+3、在Java中使用
+4、在Python中使用
+
+
+
+Kafka学习（2017-6-18）===========================================>>>>>>>>>>>>>>>>>>>>>
+	Kafka与ActiveMQ、Redis类似，都是Message Middleware，自带有Zookeeper，可以单独运行，无需与Hadoop等其它软件配合使用。
+
+Download kafka_2.11-0.11.0.0.tgz
+	tar -xzvf kafka_2.11-0.11.0.0.tgz -C /u01/app
+	Kafka自带了zookeeper。这个zookeeper也可以给到用Storm时用，因为Storm需要zookeeper，但它的包里又没有带。
+	
+Start kafka service:
+	Step 1: start zookeeper
+		[root@fhlab1 kafka_2.11-0.11.0.0]# ./bin/zookeeper-server-start.sh config/zookeeper.properties
+	Step 2: start kafka
+		[root@fhlab1 kafka_2.11-0.11.0.0]# ./bin/kafka-server-start.sh config/server.properties
+	Step 3: Create toptic, and list all the topic
+		[root@fhlab1 kafka_2.11-0.11.0.0]# bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic fhtest1
+		Created topic "fhtest1".
+		[root@fhlab1 kafka_2.11-0.11.0.0]# ./bin/kafka-topics.sh --list --zookeeper localhost:2181
+		fhtest1
+	Step 4: Open a procedure
+		[root@fhlab1 kafka_2.11-0.11.0.0]# ./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic fhtest1
+		>Hello world!
+	Step 5: Open a consumer
+		[root@fhlab1 kafka_2.11-0.11.0.0]# ./bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic fhtest1 --from-beginning
+		Using the ConsoleConsumer with old consumer is deprecated and will be removed in a future major release. Consider using the new consumer by passing [bootstrap-server] instead of [zookeeper].
+		Hello world!
+	Step 6: Send message to do test
+
+Storm
+
+Download apache-storm-1.1.0.tar.gz:
+	tar -xzvf apache-storm-1.1.0.tar.gz -C /u01/app
+	
+Configure: vi storm.yaml
+storm.zookeeper.servers: 
+     - "127.0.0.1" 
+nimbus.host: "127.0.0.1" 
+storm.local.dir: "/usr/storm" 
+supervisor.slots.ports: 
+     - 6700 
+     - 6701 
+     - 6702 
+     - 6703 
+topology.debug: true 
+注意：每个冒号后有一个空隔，每行最后有一个空隔。
+	
+Start Storm
+	Step 1: start zookeeper
+		Same as above - start kafka 
+	Step 2: start nimbus, web ui, supervisor
+		[root@fhlab1 apache-storm-1.1.0]# storm nimbus &
+		[1] 9722
+		[root@fhlab1 apache-storm-1.1.0]# jps
+		9737 config_value
+		9475 QuorumPeerMain
+		9746 Jps
+		
+		[root@fhlab1 apache-storm-1.1.0]# storm ui &
+		[root@fhlab1 apache-storm-1.1.0]# jps
+		9921 Jps
+		9838 core
+		9475 QuorumPeerMain
+		9722 nimbus
+		
+		[root@fhlab1 apache-storm-1.1.0]# storm supervisor &
+		[root@fhlab1 apache-storm-1.1.0]# jps
+		10042 Jps
+		9838 core
+		9940 Supervisor
+		9475 QuorumPeerMain
+		9722 nimbus
+	Step 3: check the status
+		http://192.168.2.11:8080/index.html
+		
+遇到的问题：
+[root@fhlab1 apache-storm-1.1.0]# storm nimbus &
+[1] 32136
+[root@fhlab1 apache-storm-1.1.0]# Need python version > 2.6
+查看当前python verson:
+[root@fhlab1 apache-storm-1.1.0]# python -V
+Python 2.4.3
+查看Linux的版本号发现RHEL5.0自带的是python2.4。
+		[root@fhlab1 Server]# lsb_release -a
+		LSB Version:    :core-3.1-ia32:core-3.1-noarch:graphics-3.1-ia32:graphics-3.1-noarch
+		Distributor ID: RedHatEnterpriseServer
+		Description:    Red Hat Enterprise Linux Server release 5 (Tikanga)
+		Release:        5
+		Codename:       Tikanga
+		[root@fhlab1 Server]# uname -a
+		Linux fhlab1.fh.com 2.6.18-8.el5 #1 SMP Fri Jan 26 14:15:21 EST 2007 i686 i686 i386 GNU/Linux
+		[root@fhlab1 proc]# cat /etc/issue
+		Red Hat Enterprise Linux Server release 5 (Tikanga)
+		Kernel \r on an \m
+查看了公司的D21 server, 现在用的是python2.6.8，所以上次我在那里做试验没有问题。
+Download and install python2.6.8 install package: https://www.python.org/download/releases/2.6.8/
+		[root@fhlab1 Python-2.6.8]# mkdir /usr/local/python268
+		[root@fhlab1 Python-2.6.8]# ./configure --prefix=/usr/local/python268
+		[root@fhlab1 Python-2.6.8]# make   -> 编译
+		[root@fhlab1 Python-2.6.8]# make install    ->安装
+		覆盖原来的python链接
+    [root@fhlab1 bin]# mv /usr/bin/python /usr/bin/python243 #一定要备份
+		[root@fhlab1 bin]# python -V
+		-bash: /usr/bin/python: No such file or directory
+		[root@fhlab1 bin]# ln -s /usr/local/python268/bin/python /usr/bin/
+		[root@fhlab1 bin]# python -V
+		Python 2.6.8
+		
+Storm Java开发：
+		1.将Storm 1.1.0里所有的jar全部加入到Eclipse的project中；
+		2.写代码；（以word count为例）
+		3.在Eclipse上运行测试；
+		4.将项目打成jar包放到linux下提交到Storm中进行运行。
+			storm jar wordcount.jar wordcount.WordCountWithStorm wordcount
+		5. 接下来用Storm shell command和Storm UI查看运行状态；
+			storm version
+			storm list
+				Topology_name        Status     Num_tasks  Num_workers  Uptime_secs
+				-------------------------------------------------------------------
+				wordcount            ACTIVE     6          3            209       
+		
+WordCountWithStorm.java:
+package wordcount;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.StringTokenizer;
+
+import org.apache.storm.Config;
+import org.apache.storm.LocalCluster;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.spout.SpoutOutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.BasicOutputCollector;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.topology.base.BaseBasicBolt;
+import org.apache.storm.topology.base.BaseRichSpout;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Values;
+import org.apache.storm.utils.Utils;
+
+/* 
+** WordCountTopolopgyAllInJava类（单词计数） 
+*/  
+public class  WordCountWithStorm{
+      
+    // 定义一个喷头，用于产生数据。该类继承自BaseRichSpout  
+    public static class RandomSentenceSpout extends BaseRichSpout {  
+        SpoutOutputCollector _collector;  
+        Random _rand;  
+          
+        @Override  
+        public void open(Map conf, TopologyContext context, SpoutOutputCollector collector){  
+            _collector = collector;  
+            _rand = new Random();  
+        }  
+          
+        @Override  
+        public void nextTuple(){  
+              
+            // 睡眠一段时间后再产生一个数据  
+            Utils.sleep(5000);  
+              
+            // 句子数组  
+            String[] sentences = new String[]{ "the cow jumped over the moon", "an apple a day keeps the doctor away",  
+                "four score and seven years ago", "snow white and the seven dwarfs", "i am at two with nature" };  
+              
+            // 随机选择一个句子  
+            String sentence = sentences[_rand.nextInt(sentences.length)];  
+              
+            // 发射该句子给Bolt  
+            _collector.emit(new Values(sentence));  
+        }  
+          
+        // 确认函数  
+        @Override  
+        public void ack(Object id){  
+        	System.err.println("ACK emit success.");
+        }  
+          
+        // 处理失败的时候调用  
+        @Override  
+        public void fail(Object id){  
+        	System.err.println("ACK emit failed.");
+        }  
+          
+        @Override  
+        public void declareOutputFields(OutputFieldsDeclarer declarer){  
+            // 定义一个字段word  
+            declarer.declare(new Fields("word"));  
+        }  
+    }  
+      
+    // 定义个Bolt，用于将句子切分为单词  
+    public static class SplitSentence extends BaseBasicBolt{  
+        @Override  
+        public void execute(Tuple tuple, BasicOutputCollector collector){  
+            // 接收到一个句子  
+            String sentence = tuple.getString(0);  
+            // 把句子切割为单词  
+            StringTokenizer iter = new StringTokenizer(sentence);  
+            // 发送每一个单词  
+            while(iter.hasMoreElements()){  
+                collector.emit(new Values(iter.nextToken()));  
+            }  
+        }  
+          
+        @Override  
+        public void declareOutputFields(OutputFieldsDeclarer declarer){  
+            // 定义一个字段  
+            declarer.declare(new Fields("word"));  
+        }  
+    }  
+      
+    // 定义一个Bolt，用于单词计数  
+    public static class WordCount extends BaseBasicBolt {  
+        Map<String, Integer> counts = new HashMap<String, Integer>();  
+          
+        @Override  
+        public void execute(Tuple tuple, BasicOutputCollector collector){  
+            // 接收一个单词  
+            String word = tuple.getString(0);  
+            // 获取该单词对应的计数  
+            Integer count = counts.get(word);  
+            if(count == null)  
+                count = 0;  
+            // 计数增加  
+            count++;  
+            // 将单词和对应的计数加入map中  
+            counts.put(word,count);  
+            System.out.println("hello word!");  
+            System.out.println(word +"  "+count);  
+            // 发送单词和计数（分别对应字段word和count）  
+            collector.emit(new Values(word, count));  
+        }  
+          
+        @Override  
+        public void declareOutputFields(OutputFieldsDeclarer declarer){  
+            //define 2 fields: word & count
+            declarer.declare(new Fields("word","count"));  
+        }  
+    }  
+    public static void main(String[] args) throws Exception   
+    {  
+        // Create a topology
+        TopologyBuilder builder = new TopologyBuilder();  
+        builder.setSpout("spout", new RandomSentenceSpout());
+        builder.setBolt("split", new SplitSentence()).shuffleGrouping("spout");  
+        builder.setBolt("count", new WordCount()).fieldsGrouping("split", new Fields("word"));
+          
+        Config conf = new Config();  
+        conf.setDebug(false);  
+        
+		if (args != null && args.length > 0) {
+			//Cluster mode
+			conf.setNumWorkers(3);
+			StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
+		} else {
+			//Single node mode
+			LocalCluster cluster = new LocalCluster();
+			cluster.submitTopology("wordcount", conf, builder.createTopology());
+			Utils.sleep(100000);
+			cluster.killTopology("wordcount");
+			cluster.shutdown();
+		}
+    }  
+}  
+
+
+
+
+
+
+
+STORM启动与部署TOPOLOGY
+		启动ZOOPKEEPER zkServer.sh start
+		启动NIMBUS storm nimbus &
+		启动SUPERVISOR storm supervisor &
+		启动UI storm ui &
+		部署TOPOLOGY storm jar /opt/hadoop/loganalyst/storm-dependend/data/teststorm-1.0.jar teststorm.TopologyMain /opt/hadoop/loganalyst/storm-dependend/data/words.txt
+		删除TOPOLOGY storm kill {toponame}
+		激活TOPOLOGY storm active {toponame}
+		不激活TOPOLOGY storm deactive {toponame}
+		列出所有TOPOLOGY storm list
+
+
+一个storm的完整例子——WordCount(方辉：测试成功)
+http://blog.csdn.net/nb_vol_1/article/details/46287077
+
+Storm系列之最基本的例子(方辉：测试成功)
+http://itindex.net/detail/47353-storm-%E7%B3%BB%E5%88%97?nsukey=rKtU3OwMAelMpwDlTWK4m4fXsNaTMzpbrXA8VkvP4JrClqZlmPnTJjQyz1vxmnIeyvCosYnreK8BfmZc2FtYllmaYoM%2Bp068vhe6yLEJIkrFktm1RZp81GZpZ8UFzUZzlCv1%2BuHmGXodOfl42NkhnGDy67SdX%2FNYa0Eg1u4qwgSrrjBnm%2FxltevOEiiBmFGt
+本地测试通过了，我们用 mvn clean install 命令编译，然后把target目录下生成的 storm-samples-jar-with-dependencies.jar 拷到nimbus机器上，执行
+./storm jar storm-samples-jar-with-dependencies.jar com.edi.storm.topos.ExclaimBasicTopo test
+
+Getting start with storm
+http://ifeve.com/wp-content/uploads/2014/03/Getting-Started-With-Storm-Jonathan-Leibiusky-Gabriel-E_1276.pdf
+
+运行第一个Topology程序
+	http://blog.csdn.net/liuj2511981/article/details/17115261
+
+Apache Storm技术实战之3 -- TridentWordCount
+http://www.cnblogs.com/hseagle/p/3516458.html
+
+eclipse配置storm1.1.0开发环境并本地跑起来
+http://www.cnblogs.com/wuxun1997/p/6884378.html
+
+为了使用中文分词还要引用到IKAnalyzer2012_FF.jar
+https://code.google.com/archive/p/ik-analyzer/downloads
+
+Storm概念、原理详解及其应用（一）BaseStorm
+http://blog.csdn.net/kuring_k/article/details/51872112
+方辉：讲到了8种Stream groupping
+Storm概念、原理详解及其应用（二）Storm Cluster
+http://blog.csdn.net/kuring_k/article/details/51887340
+方辉：讲到了Storm在zookeeper中生成的树型目录结构
+
+
+
+
+
+
+ElasticSearch
+
+Download elasticsearch-5.4.3.zip:
+	https://www.elastic.co/downloads/elasticsearch
+	
+D:\pf\elasticsearch-5.4.3>bin\elasticsearch.bat
+Elasticsearch requires at least Java 8 but your Java version from "D:\pf\jdk17080_64\bin\java.exe" d
+Solution: download Java8。
+
+D:\pf\elasticsearch-5.4.3>bin\elasticsearch.bat
+[2017-07-02T15:31:32,432][INFO ][o.e.n.Node               ] [] initializing ...
+[2017-07-02T15:31:33,196][INFO ][o.e.e.NodeEnvironment    ] [H4kTAUw] using [1] data paths, mounts [[鏂板姞鍗?(D:)]], net usable_space [28.4gb], net total_space [99.9gb], spins? [unknown], types [NTFS]
+[2017-07-02T15:31:33,196][INFO ][o.e.e.NodeEnvironment    ] [H4kTAUw] heap size [1.9gb], compressed ordinary object pointers [true]
+[2017-07-02T15:31:33,196][INFO ][o.e.n.Node               ] node name [H4kTAUw] derived from node ID [H4kTAUwLQ_KD1ZNTA8Gy1Q]; set [node.name] to override
+[2017-07-02T15:31:33,196][INFO ][o.e.n.Node               ] version[5.4.3], pid[5416], build[eed30a8/2017-06-22T00:34:03.743Z], OS[Windows 7/6.1/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_131/25.131-b11]
+[2017-07-02T15:31:33,196][INFO ][o.e.n.Node               ] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+DisableExplicitGC, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Delasticsearch, -Des.path.home=D:\pf\elasticsearch-5.4.3]
+[2017-07-02T15:31:35,955][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [aggs-matrix-stats]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [ingest-common]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [lang-expression]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [lang-groovy]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [lang-mustache]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [lang-painless]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [percolator]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [reindex]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [transport-netty3]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] loaded module [transport-netty4]
+[2017-07-02T15:31:35,971][INFO ][o.e.p.PluginsService     ] [H4kTAUw] no plugins loaded
+[2017-07-02T15:31:42,939][INFO ][o.e.d.DiscoveryModule    ] [H4kTAUw] using discovery type [zen]
+[2017-07-02T15:31:44,624][INFO ][o.e.n.Node               ] initialized
+[2017-07-02T15:31:44,624][INFO ][o.e.n.Node               ] [H4kTAUw] starting ...
+[2017-07-02T15:31:47,025][INFO ][o.e.t.TransportService   ] [H4kTAUw] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}, {[::1]:9300}[2017-07-02T15:31:50,217][INFO ][o.e.c.s.ClusterService   ] [H4kTAUw] new_master {H4kTAUw}{H4kTAUwLQ_KD1ZNTA8Gy1Q}{5r2J7DEsTfit26PH9_aIJQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2017-07-02T15:31:50,390][INFO ][o.e.g.GatewayService     ] [H4kTAUw] recovered [0] indices into cluster_state
+[2017-07-02T15:31:52,078][INFO ][o.e.h.n.Netty4HttpServerTransport] [H4kTAUw] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}, {[::1]:9200}
+[2017-07-02T15:31:52,094][INFO ][o.e.n.Node               ] [H4kTAUw] started
+
+Now, access http://127.0.0.1:9200/
+Response:
+{
+  "name" : "H4kTAUw",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "xVAUvXmDQDOa-yhqARobxg",
+  "version" : {
+    "number" : "5.4.3",
+    "build_hash" : "eed30a8",
+    "build_date" : "2017-06-22T00:34:03.743Z",
+    "build_snapshot" : false,
+    "lucene_version" : "6.5.1"
+  },
+  "tagline" : "You Know, for Search"
+}
+
+现在让我们从http://mobz.github.io/elasticsearch-head/ 安装ElasticSearch Head插件
+cd C:\elasticsearch-0.90.3\bin
+plugin -install mobz/elasticsearch-head
+
+
+
+Python
+	下载Python windows，这样可以在windows下运行python程序，也可以画出图来。
+		download python-3.6.2.exe: https://www.python.org/downloads/
+		download pip-9.0.1.tar.gz (md5, pgp): https://pypi.python.org/pypi/pip#downloads
+		step 1: install python
+		step 2: install pip
+			D:\>cd D:\pf\pip-9.0.1
+			D:\pf\pip-9.0.1>python setup.py install
+			add path into enviroment variable path: 
+	下载IntelliJ IDEA，这是一个类似Eclipse的IDE，不过在Scala和Python等开发中比Eclipse要好很多。
+		http://www.jetbrains.com/idea/download/#section=windows
+	
+	
+	lgs-pycha-e3e270a0e7ae.zip https://bitbucket.org/lgs/pycha/downloads/
+	
+			C:\Users\Administrator>pip install pandas
+			Collecting pandas
+			  Downloading pandas-0.20.3-cp36-cp36m-win32.whl (7.5MB)
+			    100% |████████████████████████████████| 7.5MB 19kB/s
+			Collecting numpy>=1.7.0 (from pandas)
+			  Downloading numpy-1.13.1-cp36-none-win32.whl (6.8MB)
+			    100% |████████████████████████████████| 6.8MB 32kB/s
+			Collecting pytz>=2011k (from pandas)
+			  Downloading pytz-2017.2-py2.py3-none-any.whl (484kB)
+			    100% |████████████████████████████████| 491kB 24kB/s
+			Collecting python-dateutil>=2 (from pandas)
+			  Downloading python_dateutil-2.6.1-py2.py3-none-any.whl (194kB)
+			    100% |████████████████████████████████| 194kB 14kB/s
+			Collecting six>=1.5 (from python-dateutil>=2->pandas)
+			  Downloading six-1.10.0-py2.py3-none-any.whl
+			Installing collected packages: numpy, pytz, six, python-dateutil, pandas
+			Successfully installed numpy-1.13.1 pandas-0.20.3 python-dateutil-2.6.1 pytz-2017.2 six-1.10.0
+			
+D:\>python a1.py
+Traceback (most recent call last):
+  File "a1.py", line 4, in <module>
+    from sklearn import linear_model
+ModuleNotFoundError: No module named 'sklearn'
+
+C:\Users\Administrator>pip install sklearn
+Collecting sklearn
+  Downloading sklearn-0.0.tar.gz
+Collecting scikit-learn (from sklearn)
+  Downloading scikit_learn-0.18.2-cp36-cp36m-win32.whl (3.7MB)
+    100% |████████████████████████████████| 3.7MB 13kB/s
+Installing collected packages: scikit-learn, sklearn
+  Running setup.py install for sklearn ... done
+Successfully installed scikit-learn-0.18.2 sklearn-0.0
+
+D:\>python a1.py
+Traceback (most recent call last):
+  File "a1.py", line 4, in <module>
+    from sklearn import linear_model
+  File "D:\pf\python362\lib\site-packages\sklearn\__init__.py", line 57, in <module>
+    from .base import clone
+  File "D:\pf\python362\lib\site-packages\sklearn\base.py", line 10, in <module>
+    from scipy import sparse
+ModuleNotFoundError: No module named 'scipy'
+
+Matplotlib入门：Python的可视化绘制工具包(方辉Python绘图成功)
+http://blog.csdn.net/nieson2012/article/details/52153134
+			
+			import matplotlib.pyplot as plt
+			import numpy as np
+			
+			## 简单的绘图
+			#x = np.linspace(0, 2 * np.pi, 50)
+			#plt.plot(x, np.sin(x)) # 如果没有第一个参数 x，图形的 x 坐标默认为数组的索引
+			#plt.show() # 显示图形
+			
+			x = np.linspace(0, 2 * np.pi, 50)
+			plt.plot(x, np.sin(x),
+			        x, np.sin(2 * x))
+			plt.show()
+			
+			D:\>a2.py
+			Traceback (most recent call last):
+			  File "D:\a2.py", line 2, in <module>
+			    import matplotlib.pyplot as plt
+			ModuleNotFoundError: No module named 'matplotlib'
+			
+			C:\Users\Administrator>pip install matplotlib
+			Collecting matplotlib
+			  Downloading matplotlib-2.0.2-cp36-cp36m-win32.whl (8.7MB)
+			    100% |████████████████████████████████| 8.7MB 36kB/s
+			Requirement already satisfied: pytz in d:\pf\python362\lib\site-packages (from matplotlib)
+			Requirement already satisfied: python-dateutil in d:\pf\python362\lib\site-packages (from matplotlib)
+			Requirement already satisfied: six>=1.10 in d:\pf\python362\lib\site-packages (from matplotlib)
+			Collecting cycler>=0.10 (from matplotlib)
+			  Downloading cycler-0.10.0-py2.py3-none-any.whl
+			Requirement already satisfied: numpy>=1.7.1 in d:\pf\python362\lib\site-packages (from matplotlib)
+			Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=1.5.6 (from matplotlib)
+			  Downloading pyparsing-2.2.0-py2.py3-none-any.whl (56kB)
+			    100% |████████████████████████████████| 61kB 50kB/s
+			Installing collected packages: cycler, pyparsing, matplotlib
+			Successfully installed cycler-0.10.0 matplotlib-2.0.2 pyparsing-2.2.0
+			
+Python解方程、方程组，求极限，求不定积份、定积分(方辉试验成功)
+			D:\>pip install sympy
+			Collecting sympy
+			  Downloading sympy-1.1.1.tar.gz (4.6MB)
+			    100% |████████████████████████████████| 4.6MB 43kB/s
+			Collecting mpmath>=0.19 (from sympy)
+			  Downloading mpmath-0.19.tar.gz (498kB)
+			    100% |████████████████████████████████| 501kB 193kB/s
+			Installing collected packages: mpmath, sympy
+			  Running setup.py install for mpmath ... done
+			  Running setup.py install for sympy ... done
+			Successfully installed mpmath-0.19 sympy-1.1.1
+
+SciPy-数值计算库
+	http://old.sebug.net/paper/books/scipydoc/scipy_intro.html#b-spline
+		最小二乘拟合
+		函数最小值
+		非线性方程组求解
+		B-Spline样条曲线
+		数值积分
+		解常微分方程组
+		滤波器设计
+		用Weave嵌入C语言
+		
+		
+FFMPEG视频处理工具：
+命令格式：
+    ffmpeg -i [输入文件名] [参数选项] -f [格式] [输出文件]
+    ffmpeg [[options][`-i' input_file]]... {[options] output_file}...
+    1、参数选项：
+    (1) -an: 去掉音频
+    (2) -acodec: 音频选项， 一般后面加copy表示拷贝
+    (3) -vcodec:视频选项，一般后面加copy表示拷贝
+    2、格式：
+    (1) h264: 表示输出的是h264的视频裸流
+    (2) mp4: 表示输出的是mp4的视频
+    (3)mpegts: 表示ts视频流
+    如果没有输入文件，那么视音频捕捉（只在Linux下有效，因为Linux下把音视频设备当作文件句柄来处理）就会起作用。作为通用的规则，选项一般用于下一个特定的文件。如果你给 –b 64选项，改选会设置下一个视频速率。对于原始输入文件，格式选项可能是需要的。缺省情况下，ffmpeg试图尽可能的无损转换，采用与输入同样的音频视频参数来输出。（by ternence.hsu）
+    
+ffmpeg -f gdigrab -framerate 30 -offset_x 0 -offset_y 0 -video_size 500x350 -i desktop out.mpg
+		- gdigrab:表明我们是通过gdi抓屏的方式； 
+		- -framerate 30：表示我录制的帧率为30； 
+		- -offset_x ：左上偏移量X； 
+		- -offset_y ：左上偏移量Y； 
+		- -video_size：需要录制的宽度和高度，这是我是整个屏幕； 
+		- -i：输入路径和名称以及格式mpg； 
+		-desktop：告诉ffmpeg我们录的是屏幕，而不是一个窗口(可以录制一个窗口，不过得用窗口的ID)。
+		
+		说明：帧率是和格式相关的，比如我用mpg格式30帧就很清楚，如果用mp4则需要60帧。
+		
+ffmpeg -i F:\ka1\db1\SHX-004-AVI\test1.avi -acodec copy -vcodec copy -f mp4 test.mp4
